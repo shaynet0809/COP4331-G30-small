@@ -1,0 +1,2 @@
+# exclude Visual Studio specific files
+.vs
