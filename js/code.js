@@ -15,6 +15,8 @@ let lastName = "";
 
 // Outstanding questions:
 // When searching by first or last name do we need to functions or can one search both?
+// What happens when some tries to modify or delete a non-existant contact (Create error handling)
+// What happens when a user tries to add a duplicate user (Create error handling, maybe ask them if they'd like to update?, what field decides if it is duplicate?)
 
 function doLogin()
 {
@@ -177,8 +179,40 @@ function searchContacts() {
         };
         xhr.send(jsonPayload);
     }
-    catch (err) {
+    catch (err) 
+    {
         document.getElementById("contactSearchResult").innerHTML = err.message;
     }
 
+}
+
+
+function doUpdate() {
+
+    // TODO holding place
+    // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
+
+    try 
+    {
+
+    }
+    catch (err)
+    {
+        document.getElementById("updateResult").innerHTML = err.message;
+    }
+}
+
+function doDelete() {
+
+    // TODO holding place
+    // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
+
+    try 
+    {
+
+    }
+    catch (err)
+    {
+        document.getElementById("deleteResult").innerHTML = err.message;
+    }
 }
