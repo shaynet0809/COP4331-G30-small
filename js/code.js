@@ -110,6 +110,7 @@ function doLogout() {
 }
 
 function addContact() {
+
     let newFirstName = document.getElementById("firstName").value;
     let newLastName = document.getElementById("lastName").value;
     let newPhoneNumber = document.getElementById("phoneNumber").value;
@@ -191,10 +192,38 @@ function doUpdate() {
 
     // TODO holding place
     // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
+    // recives contact data from searh function
+    // sends updated info to the API similar to  creation but with conatct id
+    // first and last name required, do not accept if either is blank
+    // prepopulate with current data, that way the user only changes what they need
+
+    let updatedFirstName = document.getElementById("firstName").value;
+    let updatedLastName = document.getElementById("lastName").value;
+    let updatedPhoneNumber = document.getElementById("phoneNumber").value;
+    let updatedEmail = document.getElementById("email").value;
+
+    // contactId and userId should be sent/chosen by search function
+
+    document.getElementById("contactAddResult").innerHTML = "";
+
+    let tmp = { contactId: contactId, firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/UpdateContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
 
     try 
     {
-
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
+            }
+        };
+        xhr.send(jsonPayload);
     }
     catch (err)
     {
@@ -206,10 +235,29 @@ function doDelete() {
 
     // TODO holding place
     // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
+    // contactId and userId should be provided by search function
+
+    // let contactId = document.getElementById("contactId");
+    // let userId = documnet.getElementById("userId");
+
+    let tmp = { contactId: contactId, userId: userId };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     try 
     {
-
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+            }
+        };
+        xhr.send(jsonPayload);
     }
     catch (err)
     {

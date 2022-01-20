@@ -1,0 +1,48 @@
+<!--- COP 4331-Spr22 Small Project Group 30 --->
+<html>
+<head>
+    <title>Contact Manager</title>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <!---
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            readCookie();
+        }, false);
+    </script>
+    --->
+
+    <!--- TODO uncomment cookie script after page is tested-->
+
+    <!--- ADD MENU -->
+
+
+</head>
+<body>
+
+    <h1 id="title">Contact Manager</h1>
+
+    <div id="loggedInDiv">
+        <span id="userName"></span><br />
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>
+
+    <div id="accessUIDiv">
+        <br />
+        <span id="inner-title">Please update the contact information.</span>
+        <input type="text" id="firstName" placeholder=firstName>
+        <input type="text" id="lastName" placeholder=lastName>
+        <input type="tel" id="phoneNumber" placeholder=phoneNumber pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <input type="email" id="email" placeholder=email>
+        <input type="text" id="streetAddress" placeholder=streetAddress>
+        <input type="text" id="city" placeholder=city>
+        <input type="text" id="state" placeholder=state>
+        <input type="number" id="zip" placeholder=zip>
+        <button type="button" id="addContactButton" class="buttons" onclick="updateContact();"> Update Contact </button><br />
+        <span id="contactUpdateResult"></span>
+    </div>
+
+</body>
+</html>
