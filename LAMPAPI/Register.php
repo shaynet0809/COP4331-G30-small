@@ -4,7 +4,7 @@
 
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
-	$login = $inData["login"];
+	$login = $inData["email"];
 	$password = $inData["password"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
@@ -15,9 +15,23 @@
 	}
 	else
 	{
-		// FIXME: More code for functionality
-		$stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, email) VALUES (?, ?, ?)");
-		$stmt->bind_param("sss", $firstname, $lastname, $email);
+		// Testing to see if a new user gets registered.
+		$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)");
+		$stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if( $row = $result->fetch_assoc()  )
+		{
+			returnWithInfo( $row['firstName'], $row['lastName'], $row['eMail'], $row["passWord"] );
+		}
+		else
+		{
+			returnWithError("No Records Found");
+		}
+
+		$stmt->close();
+		$conn->close();
 	}
 
 	function getRequestInfo()
