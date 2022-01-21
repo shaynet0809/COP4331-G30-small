@@ -1,17 +1,17 @@
 <?php
 	$inData = getRequestInfo();
-	
+
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
 	$phoneNumber = $inData["phoneNumber"];
 	$email = $inData["email"];
 	$userId = $inData["userId"];
 
-	$conn = new mysqli("localhost", "Group30", "Group30password", "COP4331"); 	
-	if ($conn->connect_error) 
+	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331"); 	
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
 		// TODO: Format two statements below to match new parameters
@@ -37,11 +37,11 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>
