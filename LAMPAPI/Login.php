@@ -2,9 +2,10 @@
 <?php
 
 	// NOTE: This file is pretty much unchanged as it seems the JS 'doLogin' method also wasn't changed
+	// This is edit #2.
 
 	$inData = getRequestInfo();
-	
+
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
@@ -33,7 +34,7 @@
 		$stmt->close();
 		$conn->close();
 	}
-	
+
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
@@ -44,17 +45,17 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
 		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>
