@@ -3,6 +3,7 @@
 
 	// NOTE: This file is pretty much unchanged as it seems the JS 'doLogin' method also wasn't changed
 	// This is edit #2.
+	// This is edit #3.
 
 	$inData = getRequestInfo();
 
