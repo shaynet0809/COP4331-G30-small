@@ -4,7 +4,7 @@
 
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
-	$login = $inData["email"];
+	$login = $inData["login"];
 	$password = $inData["password"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
@@ -20,7 +20,7 @@
 		// API. We definitely need to debug this.
 
 		$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES (?,?,?,?)");
-		$stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
+		$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
