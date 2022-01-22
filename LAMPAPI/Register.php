@@ -15,10 +15,10 @@
 	}
 	else
 	{
-		// Testing to see if a new user gets registered.
-		// Not sure what is happening but I get a code 500 when testing this
-		// API. We definitely need to debug this.
-
+		// This version worked on ARC. I got code 200. Now this version does not
+		// handle duplication login in names. So it cant create another user
+		// with the same name.
+		
 		$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
