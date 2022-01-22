@@ -11,7 +11,6 @@ let lastName = "";
 // TODO Write more specific search functions?
 // TODO Write updateContact()
 // TODO Write deleteContact()
-// TODO Write doRegister() for creating logins, should redirect back to login.html or index.html on success
 
 // Outstanding questions:
 // When searching by first or last name do we need to functions or can one search both?
@@ -64,6 +63,50 @@ function doLogin()
         document.getElementById("loginResult").innerHTML = err.message;
     }
 }
+
+function doRegister() {
+    userId = 0;
+    firstName = "";
+    lastName = "";
+
+    let FirstName = document.getElementById("FirstName").value;
+    let LastName = document.getElementById("LastName").value;
+    let Login = document.getElementById("Login").value;
+    var hash = md5(password);
+
+    document.getElementById("registrationResult").innerHTML = "";
+
+    let tmp = { FirstName: FirstName, LastName: LastName, Login: Login, Password: hash };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/Register.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+                userId = jsonObject.id;
+
+                if (userId < 1) {
+                    document.getElementById("registrationResult").innerHTML = "Registration failed. Please choose a different user name and try again.";
+                    return;
+                }
+
+                window.location.href = "login.html";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        document.getElementById("registrationResult").innerHTML = err.message;
+    }
+}
+
+
 
 
 function saveCookie()
@@ -233,8 +276,6 @@ function doUpdate() {
 
 function doDelete() {
 
-    // TODO holding place
-    // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
     // contactId and userId should be provided by search function
 
     // let contactId = document.getElementById("contactId");
