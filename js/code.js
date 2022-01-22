@@ -44,7 +44,7 @@ function doLogin()
                 userId = jsonObject.id;
 
                 if (userId < 1) {
-                    document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+                    document.getElementById("loginResult").innerHTML = err.message;
                     return;
                 }
 
@@ -92,7 +92,7 @@ function doRegister() {
                 userId = jsonObject.id;
 
                 if (userId < 1) {
-                    document.getElementById("registrationResult").innerHTML = "Registration failed. Please choose a different user name and try again.";
+                    document.getElementById("registrationResult").innerHTML = err.message;
                     return;
                 }
 
