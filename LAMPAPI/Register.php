@@ -19,11 +19,22 @@
 		// Not sure what is happening but I get a code 500 when testing this
 		// API. We definitely need to debug this.
 
+		$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
+		$stmt->bind_param("s", $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if (mysqli_num_rows($result) > 0)
+		{
+			returnWithError("Username already exists");
+		}
+
 		$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES (?,?,?,?)");
 		$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
+
 		returnWithError("");
 	}
 
