@@ -15,11 +15,18 @@
 	}
 	else
 	{
+		/*	
+		*	Username verification is finished and returns
+		*	with 200. This section should be finished
+		*/
+
+		// Gets all users with a specified username
 		$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
+		// If a username already exists
 		if (mysqli_num_rows($result) > 0)
 		{
 			$stmt->close();
@@ -28,6 +35,7 @@
 		}
 		else
 		{
+			// Inserts unique user into database
 			$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES (?,?,?,?)");
 			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 			$stmt->execute();
