@@ -20,8 +20,12 @@
 		*	This section should be finished.
 		*/
 		
-		// Determines if a field is incomplete
-		if (fieldsAreValid($firstName, $lastName, $login, $password))
+		// Determines if at least one field is incomplete
+		if (!fieldsAreValid($firstName, $lastName, $login, $password))
+		{
+			returnWithError("One or More Fields Incomplete");
+		}
+		else
 		{
 			// Gets all users with a specified username
 			$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
@@ -46,10 +50,6 @@
 
 			$stmt->close();
 			$conn->close();
-		}
-		else
-		{
-			returnWithError("One or More Fields Incomplete");
 		}
 	}
 
