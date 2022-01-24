@@ -2,8 +2,6 @@
 <?php
 
 	// NOTE: This file is pretty much unchanged as it seems the JS 'doLogin' method also wasn't changed
-	// This is edit #2.
-	// This is edit #3.
 
 	$inData = getRequestInfo();
 
@@ -18,14 +16,16 @@
 	}
 	else
 	{
+		// Gets a specified user's information
 		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
-
-		if( $row = $result->fetch_assoc()  )
+		
+		// If the user exists in the database
+		if($row = $result->fetch_assoc())
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo($row['firstName'], $row['lastName'], $row['ID']);
 		}
 		else
 		{
