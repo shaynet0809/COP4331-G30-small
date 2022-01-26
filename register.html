@@ -1,7 +1,7 @@
 <!--- COP 4331-Spr22 Small Project Group 30 --->
 
 <!--- TODO take user back to login or index after registration-->
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Contact Manager Registration</title>
@@ -9,17 +9,20 @@
     <script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
 </head>
 <body>
     <h1 id="title">Contact Manager Registration</h1>
 
     <div id="loginDiv">
-        <span id="inner-title">PLEASE CREATE CREDENTIALS</span>
-        <input type="text" id="firstName" placeholder="First Name" /><br />
-        <input type="text" id="lastName" placeholder="Last Name" /><br />
-        <input type="text" id="login" placeholder="Username" /><br />
-        <input type="password" id="password" placeholder="Password" /><br />
-        <button type="button" id="loginButton" class="buttons" onclick="doRegister();"> Register </button>
+        <form>
+            <input type="text" id="firstName" placeholder="First Name" minlength="2" maxlength="25" required /><br />
+            <input type="text" id="lastName" placeholder="Last Name" minlength="2" maxlength="25" required /><br />
+            <input type="text" id="login" placeholder="Username" minlength="4" maxlength="25" required /><br />
+            <input type="password" id="password" placeholder="Password" minlength="4" maxlength="25" required /><br />
+            <button type="button" id="loginButton" class="buttons" onclick="doRegister();"> Register </button>
+            <button type="button" id="navCancel" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/index.html';"> Cancel </button>
+        </form>
         <span id="registrationResult"></span>
     </div>
 </body>

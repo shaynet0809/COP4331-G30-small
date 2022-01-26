@@ -123,7 +123,7 @@ function doLogin()
                 userId = jsonObject.id;
 
                 if (userId < 1) {
-                    document.getElementById("loginResult").innerHTML = "Login successful.";
+                    document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
                     return;
                 }
 
@@ -180,8 +180,9 @@ function doRegister() {
                 let jsonObject = JSON.parse(xhr.responseText);
                 userId = jsonObject.id;
 
-                if (userId < 1) {
-                    document.getElementById("registrationResult").innerHTML = "Registration successful.";
+                if (userId < 1)
+                {
+                    document.getElementById("registrationResult").innerHTML = "All fields required.";
                     return;
                 }
 
@@ -236,7 +237,8 @@ function doUpdate() {
     }
 }
 
-function readCookie() {
+function readCookie()
+{
 
     userId = -1;
 

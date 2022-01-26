@@ -1,5 +1,5 @@
 <!--- COP 4331-Spr22 Small Project Group 30 -->
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Contact Manager</title>
@@ -7,15 +7,16 @@
     <script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
 </head>
 <body>
     <h1 id="title">Contact Manager</h1>
 
     <div id="loginDiv">
-        <span id="inner-title">PLEASE LOG IN</span>
         <input type="text" id="login" placeholder="Username" /><br />
         <input type="password" id="password" placeholder="Password" /><br />
-        <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Enter </button>
+        <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log-In </button>
+        <button type="button" id="navCancel" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/index.html';"> Cancel </button>
         <span id="loginResult"></span>
     </div>
 </body>
