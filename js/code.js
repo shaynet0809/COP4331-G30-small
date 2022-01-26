@@ -17,13 +17,92 @@ let lastName = "";
 // What happens when some tries to modify or delete a non-existant contact (Create error handling)
 // What happens when a user tries to add a duplicate user (Create error handling, maybe ask them if they'd like to update?, what field decides if it is duplicate?)
 
+
+
+function addContact() {
+
+    let newFirstName = document.getElementById("firstName").value;
+    let newLastName = document.getElementById("lastName").value;
+    let newPhoneNumber = document.getElementById("phoneNumber").value;
+    let newEmail = document.getElementById("email").value;
+    document.getElementById("contactAddResult").innerHTML = "";
+
+    let tmp = { firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/AddContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactAddResult").innerHTML = "Contact has been added.";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        document.getElementById("contactAddResult").innerHTML = err.message;
+    }
+
+}
+
+// might not be necessary, still researching how to transition from the submit button on the drop down box
+
+function displayContact() {
+
+
+    
+    
+    document.getElementById("conditionalUpdate").innerHTML = '<a href="http://justkeeptesting.xyz/update-contact.html"><button>Update Contact</button></a>';
+    document.getElementById("conditionalDelte").innerHTML = '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete Contact </button>';
+
+
+}
+
+function doDelete() {
+
+    // contactId and userId should be provided by search function
+
+    // let contactId = document.getElementById("contactId");
+    // let userId = documnet.getElementById("userId");
+
+    let tmp = { contactId: contactId, userId: userId };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try 
+    {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted.";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err)
+    {
+        document.getElementById("deleteResult").innerHTML = err.message;
+    }
+}
+
 function doLogin()
 {
     userId = 0;
     firstName = "";
     lastName = "";
 
-    let login = document.getElementById("loginName").value;
+    let login = document.getElementById("login").value;
+    let password = document.getElementById("password").value;
     var hash = md5(password);
 
     document.getElementById("loginResult").innerHTML = "";
@@ -64,19 +143,29 @@ function doLogin()
     }
 }
 
+function doLogout() {
+    userId = 0;
+    firstName = "";
+    lastName = "";
+    document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    window.location.href = "index.html";
+}
+
 function doRegister() {
+    
     userId = 0;
     firstName = "";
     lastName = "";
 
-    let FirstName = document.getElementById("FirstName").value;
-    let LastName = document.getElementById("LastName").value;
-    let Login = document.getElementById("Login").value;
+    firstName = document.getElementById("firstName").value;
+    lastName = document.getElementById("lastName").value;
+    let login = document.getElementById("login").value;
+    let password = document.getElementById("password").value;
     var hash = md5(password);
 
     document.getElementById("registrationResult").innerHTML = "";
 
-    let tmp = { FirstName: FirstName, LastName: LastName, Login: Login, Password: hash };
+    let tmp = { firstName: firstName, lastName: lastName, login: login, password: hash };
     let jsonPayload = JSON.stringify(tmp);
 
     let url = urlBase + '/Register.' + extension;
@@ -106,31 +195,70 @@ function doRegister() {
     }
 }
 
+function doUpdate() {
 
+    // TODO holding place
+    // sends updated info to the API similar to  creation but with conatct id
+    // first and last name required, do not accept if either is blank
+    // prepopulate with current data, that way the user only changes what they need
 
+    let updatedFirstName = document.getElementById("firstName").value;
+    let updatedLastName = document.getElementById("lastName").value;
+    let updatedPhoneNumber = document.getElementById("phoneNumber").value;
+    let updatedEmail = document.getElementById("email").value;
 
-function saveCookie()
-{
-    let minutes = 20;
-    let date = new Date();
-    date.setTime(date.getTime() + (minutes * 60 * 1000));
-    document.cookie = "firstName" + firstName + ",lastName=" + lastName + ",userId=" + "'expires=" + date.toGMTString();
+    // contactId and userId should be sent/chosen by search function
+
+    document.getElementById("contactAddResult").innerHTML = "";
+
+    let tmp = { contactId: contactId, firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/UpdateContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
+
+    try 
+    {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated.";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err)
+    {
+        document.getElementById("updateResult").innerHTML = err.message;
+    }
 }
 
 function readCookie() {
+
     userId = -1;
+
     let data = document.cookie;
     let splits = data.split(",");
-    for (var i = 0; i < splits.length; i++) {
+
+    for (var i = 0; i < splits.length; i++)
+    {
+
         let thisOne = splits[i].trim();
         let tokens = thisOne.split("=");
-        if (tokens[0] == "firstName") {
+
+        if (tokens[0] == "firstName")
+        {
             firstName = tokens[1];
         }
-        else if (tokens[0] == "lastName") {
+        else if (tokens[0] == "lastName")
+        {
             lastName = tokens[1];
         }
-        else if (tokens[0] == "userId") {
+        else if (tokens[0] == "userId")
+        {
             userId = parseInt(tokens[1].trim());
         }
     }
@@ -144,43 +272,12 @@ function readCookie() {
 
 }
 
-function doLogout() {
-    userId = 0;
-    firstName = "";
-    lastName = "";
-    document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-    window.location.href = "index.html";
-}
-
-function addContact() {
-
-    let newFirstName = document.getElementById("firstName").value;
-    let newLastName = document.getElementById("lastName").value;
-    let newPhoneNumber = document.getElementById("phoneNumber").value;
-    let newEmail = document.getElementById("email").value;
-    document.getElementById("contactAddResult").innerHTML = "";
-
-    let tmp = { firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
-    let jsonPayload = JSON.stringify(tmp);
-
-    let url = urlBase + '/AddContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "Contact has been added.";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch (err) {
-        document.getElementById("contactAddResult").innerHTML = err.message;
-    }
-
+function saveCookie()
+{
+    let minutes = 20;
+    let date = new Date();
+    date.setTime(date.getTime() + (minutes * 60 * 1000));
+    document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 /**
@@ -250,88 +347,14 @@ function searchContacts() {
 }
 
 
-function doUpdate() {
-
-    // TODO holding place
-    // sends updated info to the API similar to  creation but with conatct id
-    // first and last name required, do not accept if either is blank
-    // prepopulate with current data, that way the user only changes what they need
-
-    let updatedFirstName = document.getElementById("firstName").value;
-    let updatedLastName = document.getElementById("lastName").value;
-    let updatedPhoneNumber = document.getElementById("phoneNumber").value;
-    let updatedEmail = document.getElementById("email").value;
-
-    // contactId and userId should be sent/chosen by search function
-
-    document.getElementById("contactAddResult").innerHTML = "";
-
-    let tmp = { contactId: contactId, firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
-    let jsonPayload = JSON.stringify(tmp);
-
-    let url = urlBase + '/UpdateContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    
-
-    try 
-    {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated.";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch (err)
-    {
-        document.getElementById("updateResult").innerHTML = err.message;
-    }
-}
-
-function doDelete() {
-
-    // contactId and userId should be provided by search function
-
-    // let contactId = document.getElementById("contactId");
-    // let userId = documnet.getElementById("userId");
-
-    let tmp = { contactId: contactId, userId: userId };
-
-    let jsonPayload = JSON.stringify(tmp);
-
-    let url = urlBase + '/DeleteContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    try 
-    {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted.";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch (err)
-    {
-        document.getElementById("deleteResult").innerHTML = err.message;
-    }
-}
-
-// might not be necessary, still researching how to transition from the submit button on the drop down box
-
-function displayContact() {
 
 
-    
-    
-    document.getElementById("conditionalUpdate").innerHTML = '<a href="http://justkeeptesting.xyz/update-contact.html"><button>Update Contact</button></a>';
-    document.getElementById("conditionalDelte").innerHTML = '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete Contact </button>';
 
 
-}
+
+
+
+
+
+
+
