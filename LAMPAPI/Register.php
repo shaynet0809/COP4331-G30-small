@@ -20,37 +20,29 @@
 		*	This section should be finished.
 		*/
 		
-		// Determines if at least one field is incomplete
-		if (!fieldsAreValid($firstName, $lastName, $login, $password))
+		// Gets all users with a specified username
+		$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
+		$stmt->bind_param("s", $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		// If a username already exists
+		if (mysqli_num_rows($result) > 0)
 		{
-			returnWithError("One or More Fields Incomplete");
+			returnWithError("Username Already Exists");
 		}
 		else
 		{
-			// Gets all users with a specified username
-			$stmt = $conn->prepare("SELECT Login FROM Users WHERE Login=?");
-			$stmt->bind_param("s", $login);
+			// Inserts unique user into database
+			$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES (?,?,?,?)");
+			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 			$stmt->execute();
-			$result = $stmt->get_result();
 
-			// If a username already exists
-			if (mysqli_num_rows($result) > 0)
-			{
-				returnWithError("Username Already Exists");
-			}
-			else
-			{
-				// Inserts unique user into database
-				$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES (?,?,?,?)");
-				$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
-				$stmt->execute();
-
-				returnWithError("");
-			}
-
-			$stmt->close();
-			$conn->close();
+			returnWithError("");
 		}
+
+		$stmt->close();
+		$conn->close();
 	}
 
 	function fieldsAreValid($firstName, $lastName, $login, $password)
