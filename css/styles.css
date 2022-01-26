@@ -12,7 +12,7 @@ body {
     font-size: 40px;
     width: 100%;
     margin: 2% 5%;
-    text-align: center;
+    margin-left: 15%;
     font-family: 'Ubuntu', sans-serif;
     color: #FFFFFF;
 }
@@ -116,6 +116,7 @@ input[type="text"], input[type="password"], input[type="tel"], input[type="email
 
 select {
     width: 30%;
+    margin: 2%;
     margin-left: 35%;
     margin-top: 2%;
     font-size: 0.75em;
@@ -137,3 +138,8 @@ select {
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
 }
+
+#selectLoginButton{
+    margin-bottom: 1%;
+}
+

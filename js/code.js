@@ -44,7 +44,7 @@ function doLogin()
                 userId = jsonObject.id;
 
                 if (userId < 1) {
-                    document.getElementById("loginResult").innerHTML = err.message;
+                    document.getElementById("loginResult").innerHTML = "Login successful.";
                     return;
                 }
 
@@ -53,9 +53,7 @@ function doLogin()
 
                 saveCookie();
 
-                // TODO make sure this redirects to the correct starting page with the choice 
-                // of adding a contact or searching for contacts
-                window.location.href = "contacts.html";
+                window.location.href = "landing-page.html";
             }
         };
         xhr.send(jsonPayload);
@@ -94,7 +92,7 @@ function doRegister() {
                 userId = jsonObject.id;
 
                 if (userId < 1) {
-                    document.getElementById("registrationResult").innerHTML = err.message;
+                    document.getElementById("registrationResult").innerHTML = "Registration successful.";
                     return;
                 }
 
@@ -170,10 +168,11 @@ function addContact() {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+                document.getElementById("contactAddResult").innerHTML = "Contact has been added.";
             }
         };
         xhr.send(jsonPayload);
@@ -198,6 +197,9 @@ function searchContacts() {
     document.getElementById("contactSearchResult").innerHTML = "";
 
     let contactList = "";
+    var dropdown = document.getElementById("env-select");
+
+    let contactSelected = false;
 
     let tmp = { search: srch, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -210,7 +212,7 @@ function searchContacts() {
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactSearchResult").innerHTML = "Contacts(s) has been retrieved";
+                document.getElementById("contactSearchResult").innerHTML = "Search completed sucessfully.";
                 let jsonObject = JSON.parse(xhr.responseText);
 
                 for (let i = 0; i < jsonObject.results.length; i++) {
@@ -221,12 +223,27 @@ function searchContacts() {
                 }
 
                 document.getElementsByTagName("p")[0].innerHTML = contactList;
+
+                // TODO load list of contacts into dropdown box or similar object
+                // when user submits selection, change contactSelected to "true"
+
+                
+               /** 
+                if (contactSelected == true) {
+                    
+                    document.getElementById("conditionalUpdate").innerHTML = '<a href="http://justkeeptesting.xyz/update-contact.html"><button>Update Contact</button></a>';
+                    document.getElementById("conditionalDelte").innerHTML = '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete Contact </button>';
+
+                }
+                */
+                    
             }
         };
         xhr.send(jsonPayload);
     }
     catch (err) 
     {
+        // TODO ask API if they can add an error for zero results found
         document.getElementById("contactSearchResult").innerHTML = err.message;
     }
 
@@ -236,8 +253,6 @@ function searchContacts() {
 function doUpdate() {
 
     // TODO holding place
-    // Needs error handling to check if contact exits. Not sure if this handling needs to be in front end or API
-    // recives contact data from searh function
     // sends updated info to the API similar to  creation but with conatct id
     // first and last name required, do not accept if either is blank
     // prepopulate with current data, that way the user only changes what they need
@@ -265,7 +280,7 @@ function doUpdate() {
     {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated";
+                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated.";
             }
         };
         xhr.send(jsonPayload);
@@ -297,7 +312,7 @@ function doDelete() {
     {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted.";
             }
         };
         xhr.send(jsonPayload);
@@ -306,4 +321,17 @@ function doDelete() {
     {
         document.getElementById("deleteResult").innerHTML = err.message;
     }
+}
+
+// might not be necessary, still researching how to transition from the submit button on the drop down box
+
+function displayContact() {
+
+
+    
+    
+    document.getElementById("conditionalUpdate").innerHTML = '<a href="http://justkeeptesting.xyz/update-contact.html"><button>Update Contact</button></a>';
+    document.getElementById("conditionalDelte").innerHTML = '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete Contact </button>';
+
+
 }
