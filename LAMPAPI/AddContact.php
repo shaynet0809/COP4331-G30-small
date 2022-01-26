@@ -8,7 +8,7 @@
 	$streetAddress = $inData["streetAddress"];
 	$city = $inData["city"];
 	$state = $inData["state"];
-	$zipCode = $inData["zipCode"];
+	$zip = $inData["zipCode"];
 	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331"); 	
@@ -18,17 +18,21 @@
 	}
 	else
 	{
-		// TODO: Format two statements below to match new parameters
+		//$query = "INSERT into Contacts (firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,UserID) VALUES (?,?,?,?,?,?,?,?,?)";
+		// Create query
+		$query = "INSERT into Contacts";
+		$query .= " (firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,UserID)";
+		$query .= " VALUES (?,?,?,?,?,?,?,?,?)";
 
-		/*
-		$stmt = $conn->prepare("INSERT into Contacts (UserId,Name) VALUES(?,?)");
-		$stmt->bind_param("ss", $userId, $color);
-		*/
-
+		// Add contact
+		$stmt = $conn->prepare($query);
+		$stmt->bind_param("sssssssss", $firstName, $lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$userId);
 		$stmt->execute();
+
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
+
+		returnWithError(-1,"");
 	}
 
 	function getRequestInfo()
@@ -42,9 +46,9 @@
 		echo $obj;
 	}
 
-	function returnWithError( $err )
+	function returnWithError($id,  $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"id":' . $id . ',"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
