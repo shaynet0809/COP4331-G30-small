@@ -12,15 +12,11 @@
 	}
 	else
 	{
-		/*
-		*	Section below will be edited based on which parameters we decide to search for
-		*	Most likely first name, last name, phone #, and/or email
-		*/
-
-		/*
-		$stmt = $conn->prepare("select Name from Colors where Name like ? and UserID=?");
-		$colorName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $colorName, $inData["userId"]);
+		// This does allow for search right now. Need to modify to display not
+		// just name but last name, email, etc.
+		$stmt = $conn->prepare("select firstName from Contacts where firstName like ? and UserID=?");
+		$firstName = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ss", $firstName, $inData["userId"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -32,9 +28,8 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["Name"] . '"';
+			$searchResults .= '"' . $row["firstName"] . '"';
 		}
-		*/
 
 		if( $searchCount == 0 )
 		{
