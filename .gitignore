@@ -1,2 +1,3 @@
 # exclude Visual Studio specific files
 .vs
+test.html

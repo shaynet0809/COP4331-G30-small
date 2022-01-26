@@ -53,6 +53,8 @@ function doLogin()
 
                 saveCookie();
 
+                // TODO make sure this redirects to the correct starting page with the choice 
+                // of adding a contact or searching for contacts
                 window.location.href = "contacts.html";
             }
         };
