@@ -4,7 +4,11 @@
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
 	$phoneNumber = $inData["phoneNumber"];
-	$email = $inData["email"];
+	$emailAddress = $inData["emailAddress"];
+	$streetAddress = $inData["streetAddress"];
+	$city = $inData["city"];
+	$state = $inData["state"];
+	$zipCode = $inData["zipCode"];
 	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331"); 	
