@@ -8,7 +8,7 @@
 	$streetAddress = $inData["streetAddress"];
 	$city = $inData["city"];
 	$state = $inData["state"];
-	$zip = $inData["zipCode"];
+	$zip = $inData["zip"];
 	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331"); 	
