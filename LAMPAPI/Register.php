@@ -29,7 +29,7 @@
 		// If a username already exists
 		if (mysqli_num_rows($result) > 0)
 		{
-			returnWithError("Username Already Exists");
+			returnWithError(0, "Username Already Exists");
 		}
 		else
 		{
@@ -38,7 +38,7 @@
 			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 			$stmt->execute();
 
-			returnWithError("");
+			returnWithError(-1, "");
 		}
 
 		$stmt->close();
@@ -73,9 +73,9 @@
 		echo $obj;
 	}
 
-	function returnWithError( $err )
+	function returnWithError($id,  $err )
 	{
-		$retValue = '{"id":0,"error":"' . $err . '"}';
+		$retValue = '{"id":' . $id . ',"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
