@@ -12,7 +12,7 @@
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
 	if( $conn->connect_error )
 	{
-		returnWithError( $conn->connect_error );
+		returnWithError(0, $conn->connect_error );
 	}
 	else
 	{
@@ -29,7 +29,7 @@
 		}
 		else
 		{
-			returnWithError("No Records Found");
+			returnWithError(0, "No Records Found");
 		}
 
 		$stmt->close();
@@ -47,9 +47,9 @@
 		echo $obj;
 	}
 
-	function returnWithError( $err )
+	function returnWithError($id,  $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":' . $id . ',"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

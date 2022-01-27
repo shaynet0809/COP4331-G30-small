@@ -7,7 +7,7 @@
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
 	{
-		returnWithError( $conn->connect_error );
+		returnWithError(0, $conn->connect_error );
 	}
 	else
 	{
@@ -25,9 +25,9 @@
 		echo $obj;
 	}
 
-	function returnWithError( $err )
+	function returnWithError($id,  $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":' . $id . ',"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

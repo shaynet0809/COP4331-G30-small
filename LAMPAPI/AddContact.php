@@ -14,7 +14,7 @@
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331"); 	
 	if ($conn->connect_error)
 	{
-		returnWithError( $conn->connect_error );
+		returnWithError(0, $conn->connect_error );
 	}
 	else
 	{
