@@ -22,7 +22,23 @@ let lastName = "";
 
 function addContact() {
 
+    // return value from API
+    // -1 success, 0 error
+    let returnId = -2;
 
+    // control variables
+    let fullName = false;
+    let partialAddress = false;
+    let completeAddress = false;
+    let minimumContact = false;
+    let validContact = false;
+
+    // error messages
+    let nameError = "Fist and last name required.";
+    let addressError = "Partial address not allowed.";
+    let contactMethodError = "At least one form of contact is required.";
+
+    // form variables
     let newFirstName = document.getElementById("firstName").value;
     let newLastName = document.getElementById("lastName").value;
     let newPhoneNumber = document.getElementById("phoneNumber").value;
@@ -31,35 +47,104 @@ function addContact() {
     let newCity = document.getElementById("city").value;
     let newState = document.getElementById("state").value;
     let newZip = document.getElementById("zip").value;
+
     document.getElementById("contactAddResult").innerHTML = "";
 
-    let tmp = {
-        firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId: userId,
-        streetAddress: newStreetAddress, city: newCity, state: newState, zip: newZip
-    };
-    let jsonPayload = JSON.stringify(tmp);
+    // Check for full name (required)
 
-    let url = urlBase + '/AddContact.' + extension;
+    if ((newFirstName != "") && (newLastName != ""))
+    {
+        fullName = true;
+    }
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    // Check if any address fields are populated
+    // This could mean a partial or full address. 
+    // Partial addresses are not acceptable.
 
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "Contact has been added.";
-            }
+    if ((newStreetAddress != "") || (newCity != "") || (newState != "") || (newZip != ""))
+    {
+
+        if ((newStreetAddress == "") || (newCity == "") || (newState == "") || (newZip == ""))
+        {
+            partialAddress = true;
+        }
+        else
+        {
+            completeAddress = true;
+        }
+    }
+
+    // Check that at least one form of contact is complete
+    if ((newPhoneNumber != "") || (newEmail != "") || (completeAddress))
+    {
+        minimumContact = true;
+    }
+
+    // Check if form is valid overall
+    if ((fullName) && (!partialAddress) && (minimumContact)) {
+        validContact = true;
+    }
+    else {
+
+        if (!fullName) {
+            document.getElementById("contactAddResult").innerHTML += nameError + '<br />';
+        }
+
+        if (partialAddress) {
+            document.getElementById("contactAddResult").innerHTML += addressError + '<br />';
+        }
+
+        if (!minimumContact) {
+            document.getElementById("contactAddResult").innerHTML += contactMethodError + '<br />';
+        }
+
+    }
+
+    if (validContact)
+    {
+
+        let tmp = {
+            firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, emailAddress: newEmail,
+            streetAddress: newStreetAddress, city: newCity, state: newState, zip: newZip, userId: userId
         };
 
-        xhr.send(jsonPayload);
+        let jsonPayload = JSON.stringify(tmp);
 
-        window.location.href = "landing-page.html";
-    }
-    catch (err) {
-        document.getElementById("contactAddResult").innerHTML = err.message;
-    }
+        let url = urlBase + '/AddContact.' + extension;
 
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+        try
+        {
+            xhr.onreadystatechange = function () {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    let jsonObject = JSON.parse(xhr.responseText);
+                    returnId = jsonObject.id;
+
+
+                    if (returnId == 0) {
+                        document.getElementById("contactAddResult").innerHTML = "Returned 0";
+                    }
+                    else if (returnId == -1) {
+                        document.getElementById("contactAddResult").innerHTML = "Contact added successfully.";
+                    }
+                    else {
+                        document.getElementById("contactAddResult").innerHTML = "Returned other error:" + returnId;
+                    }
+                }
+            };
+
+            xhr.send(jsonPayload);
+        }
+        catch (err)
+        {
+            document.getElementById("contactAddResult").innerHTML = err.message;
+        }
+    }
 }
 
 // might not be necessary, still researching how to transition from the submit button on the drop down box
