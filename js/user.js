@@ -36,7 +36,7 @@ function doLogin() {
 
                 saveCookie();
 
-                window.location.href = "landing-page.html";
+                window.location.href = "manager.html";
             }
         };
         xhr.send(jsonPayload);

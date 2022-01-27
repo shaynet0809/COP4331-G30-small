@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Contact Manager Registration</title>
+    <title>ContaX</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <link href="css/styles.css" rel="stylesheet">
     <script type="text/javascript" src="js/code.js"></script>
@@ -13,14 +13,19 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1 id="title">Contact Manager Registration</h1>
+    <h1 id="title">ContaX</h1>
 
     <div id="loginDiv">
+
+        <div class="topnav">
+            <a class="active" href='http://justkeeptesting.xyz/index.html'>Home</a>
+        </div>
+
         <form>
-            <input type="text" id="firstName" placeholder="First Name" minlength="1" maxlength="25" required /><br />
-            <input type="text" id="lastName" placeholder="Last Name" minlength="1" maxlength="25" required /><br />
-            <input type="text" id="login" placeholder="Username" minlength="4" maxlength="25" required /><br />
-            <input type="password" id="password" placeholder="Password" minlength="4" maxlength="25" required /><br />
+            <input type="text" id="firstName" placeholder="First Name" minlength="1" maxlength="25" required />
+            <input type="text" id="lastName" placeholder="Last Name" minlength="1" maxlength="25" required />
+            <input type="text" id="login" placeholder="Username" minlength="4" maxlength="25" required />
+            <input type="password" id="password" placeholder="Password" minlength="4" maxlength="25" required />
             <button type="button" id="loginButton" class="buttons" onclick="doRegister();"> Register </button>
             <button type="button" id="navCancel" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/index.html';"> Cancel </button>
         </form>

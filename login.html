@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Contact Manager</title>
+    <title>ContaX</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
     <script type="text/javascript" src="js/user.js"></script>
@@ -11,11 +11,16 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1 id="title">Contact Manager</h1>
+    <h1 id="title">ContaX</h1>
 
     <div id="loginDiv">
-        <input type="text" id="login" placeholder="Username" /><br />
-        <input type="password" id="password" placeholder="Password" /><br />
+
+        <div class="topnav">
+            <a class="active" href='http://justkeeptesting.xyz/index.html'>Home</a>
+        </div>
+
+        <input type="text" id="login" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
         <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log-In </button>
         <button type="button" id="navCancel" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/index.html';"> Cancel </button>
         <span id="loginResult"></span>
