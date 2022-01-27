@@ -9,7 +9,11 @@ body {
 }
 
 input {
-    border: 2px solid currentcolor;
+    box-sizing: border-box;
+    font-size: 2rem;
+    padding: 1rem;
+    display: block;
+    margin: 2rem auto;
 }
 
 input:invalid:focus {
@@ -151,4 +155,6 @@ select {
 #selectLoginButton, #loginButton{
     margin-bottom: 1%;
 }
+
+
 

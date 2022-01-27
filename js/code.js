@@ -1,9 +1,10 @@
 /** COP 4331-Spr22 Small Project Group 30 */
 
-const urlBase = 'http://justkeeptesting.xyz/LAMPAPI';
+const urlBase   = 'http://justkeeptesting.xyz/LAMPAPI';
 const extension = 'php';
 
-let userId = 0;
+
+let userId    = 0;
 let firstName = "";
 let lastName = "";
 
@@ -21,13 +22,21 @@ let lastName = "";
 
 function addContact() {
 
+
     let newFirstName = document.getElementById("firstName").value;
     let newLastName = document.getElementById("lastName").value;
     let newPhoneNumber = document.getElementById("phoneNumber").value;
     let newEmail = document.getElementById("email").value;
+    let newStreetAddress = document.getElementById("streetAddress").value;
+    let newCity = document.getElementById("city").value;
+    let newState = document.getElementById("state").value;
+    let newZip = document.getElementById("zip").value;
     document.getElementById("contactAddResult").innerHTML = "";
 
-    let tmp = { firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
+    let tmp = {
+        firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId: userId,
+        streetAddress: newStreetAddress, city: newCity, state: newState, zip: newZip
+    };
     let jsonPayload = JSON.stringify(tmp);
 
     let url = urlBase + '/AddContact.' + extension;
@@ -42,7 +51,10 @@ function addContact() {
                 document.getElementById("contactAddResult").innerHTML = "Contact has been added.";
             }
         };
+
         xhr.send(jsonPayload);
+
+        window.location.href = "landing-page.html";
     }
     catch (err) {
         document.getElementById("contactAddResult").innerHTML = err.message;
@@ -174,6 +186,12 @@ function doRegister() {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
+    if ((firstName == "") || (lastName == "") || (login == "") || (password == ""))
+    {
+        document.getElementById("registrationResult").innerHTML = "All fields required";
+        return;
+    }
+
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -182,7 +200,7 @@ function doRegister() {
 
                 if (userId < 1)
                 {
-                    document.getElementById("registrationResult").innerHTML = "All fields required.";
+                    document.getElementById("registrationResult").innerHTML = "User name already exists.";
                     return;
                 }
 
@@ -282,6 +300,34 @@ function saveCookie()
     document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
+
+function fuzzySearch() {
+    const options = {
+        isCaseSensitive: true,
+        // includeScore: false,
+        // shouldSort: true,
+        // includeMatches: false,
+        // findAllMatches: false,
+        minMatchCharLength: 1,
+        // location: 0,
+        // threshold: 0.6,
+        // distance: 100,
+        // useExtendedSearch: false,
+        // ignoreLocation: false,
+        // ignoreFieldNorm: false,
+        // fieldNormWeight: 1,
+        keys: [
+            "firstName",
+            "lastName"
+        ]
+    };
+
+    const pattern = "";
+
+    return fuse.search(pattern);
+    const fuse = new Fuse(contactList, options);
+}
+
 /**
  * We need to decide if we allow searching by first or last name or anything else.
  * Can we search both fields in one function?
@@ -292,18 +338,26 @@ function saveCookie()
  * */
 
 function searchContacts() {
-    let srch = document.getElementById("searchText").value;
-    document.getElementById("contactSearchResult").innerHTML = "";
+
+    let search = document.getElementById("searchText").value;
+
+    document.getElementById("searchContactsResult").innerHTML = "";
 
     let contactList = "";
-    var dropdown = document.getElementById("env-select");
+    let returnId = -2;
 
-    let contactSelected = false;
+    if (search == "") {
+        document.getElementById("searchContactsResult").innerHTML = "Oops, you're searching for nothing. Try again.";
+        document.getElementsByTagName("p")[0].innerHTML = "";
+        return;
+    }
 
-    let tmp = { search: srch, userId: userId };
+    let tmp = { search: search, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
 
-    let url = urlBase + '/SearchContacts.' + extension;
+    
+
+    let url = urlBase + '/SearchContact.' + extension;
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -311,17 +365,33 @@ function searchContacts() {
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactSearchResult").innerHTML = "Search completed sucessfully.";
-                let jsonObject = JSON.parse(xhr.responseText);
 
-                for (let i = 0; i < jsonObject.results.length; i++) {
-                    contactList += jsonObject.results[i];
-                    if (i < jsonObject.results.length - 1) {
-                        contactList += "<br />\r\n";
+                let jsonObject = JSON.parse(xhr.responseText);
+                returnId = jsonObject.id;
+
+                if (returnId == 0) {
+                    document.getElementById("searchContactsResult").innerHTML = "Search completed without matches.";
+                    document.getElementsByTagName("p")[0].innerHTML = "";
+                }
+                else if (returnId == -1)
+                {
+                     document.getElementById("searchContactsResult").innerHTML = "Search completed with matches.";
+
+                     for (let i = 0; i < jsonObject.results.length; i++) {
+                         contactList += jsonObject.results[i];
+                         if (i < jsonObject.results.length - 1) {
+                             contactList += "<br />\r\n";
+                         }
                     }
+
+                    document.getElementsByTagName("p")[0].innerHTML = contactList;
+                }
+                else
+                {
+                    document.getElementById("searchContactsResult").innerHTML = "Returned other error:" + returnId;
                 }
 
-                document.getElementsByTagName("p")[0].innerHTML = contactList;
+                
 
                 // TODO load list of contacts into dropdown box or similar object
                 // when user submits selection, change contactSelected to "true"
@@ -343,7 +413,7 @@ function searchContacts() {
     catch (err) 
     {
         // TODO ask API if they can add an error for zero results found
-        document.getElementById("contactSearchResult").innerHTML = err.message;
+        document.getElementById("searchContactsResult").innerHTML = err.message;
     }
 
 }

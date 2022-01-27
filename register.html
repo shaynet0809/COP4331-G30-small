@@ -6,7 +6,6 @@
 <head>
     <title>Contact Manager Registration</title>
     <script type="text/javascript" src="js/md5.js"></script>
-    <script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <meta charset="UTF-8">
@@ -16,8 +15,8 @@
 
     <div id="loginDiv">
         <form>
-            <input type="text" id="firstName" placeholder="First Name" minlength="2" maxlength="25" required /><br />
-            <input type="text" id="lastName" placeholder="Last Name" minlength="2" maxlength="25" required /><br />
+            <input type="text" id="firstName" placeholder="First Name" minlength="1" maxlength="25" required /><br />
+            <input type="text" id="lastName" placeholder="Last Name" minlength="1" maxlength="25" required /><br />
             <input type="text" id="login" placeholder="Username" minlength="4" maxlength="25" required /><br />
             <input type="password" id="password" placeholder="Password" minlength="4" maxlength="25" required /><br />
             <button type="button" id="loginButton" class="buttons" onclick="doRegister();"> Register </button>
@@ -27,3 +26,5 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript" src="js/code.js"></script>
