@@ -26,10 +26,14 @@
     <h1 id="title">Contact Manager</h1>
 
     <div id="loggedInDiv">
-        <span id="userName"></span><br />
-        <button type="button" id="navHome" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/landing-page.html';"> Home </button>
-        <button type="button" id="navLogout" class="buttons" onclick="doLogout();"> Log Out </button>
+        <div class="topnav">
+            <a class="active" href='http://justkeeptesting.xyz/landing-page.html'>Home</a>
+            <a onclick="doLogout();">Logout</a>
+        </div>
+        <br /><span id="userName" ></span><br />
     </div>
+
+
 
     <div id="accessUIDiv">
         <br />
