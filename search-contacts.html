@@ -2,42 +2,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Contact Manager</title>
-    <link href="css/styles.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <meta charset="UTF-8">
+        <title>Contact Manager</title>
+        <link href="css/styles.css" rel="stylesheet">
+        <script type="text/javascript" src="js/code.js"></script>
+        <!---
+            Keep for now incase we need to change to a differnt fuzzy search.
+            <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+        -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <meta charset="UTF-8">
 
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            readCookie();
-        }, false);
-    </script>
-
-
-</head>
-<body>
-
-    <h1 id="title">Contact Manager</h1>
-
-    <div id="loggedInDiv">
-        <span id="userName"></span><br />
-        <button type="button" id="navHome" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/landing-page.html';"> Home </button>
-        <button type="button" id="navLogout" class="buttons" onclick="doLogout();"> Log Out </button>
-    </div>
-
-    <div id="accessUIDiv">
-        <br />
-
-        <input id="finder" type="text" placeholder="search term" />
-
-        <ul id="list"></ul>
-    </div>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                readCookie();
+            }, false);
+        </script>
 
 
-        <!--- TODO add ability to select contact from search results -->
-        <!--- TODO add ability to update selected contact -->
-        <!--- TODO add ability to delete selected contact -->
+    </head>
+    <body>
+
+        <h1 id="title">Contact Manager</h1>
+
+        <div id="loggedInDiv">
+            <span id="userName"></span><br />
+            <button type="button" id="navHome" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/landing-page.html';"> Home </button>
+            <button type="button" id="navLogout" class="buttons" onclick="doLogout();"> Log Out </button>
+        </div>
+
+        <div id="accessUIDiv">
+            <br />
+
+            <input id="finder" type="text" placeholder="search term" />
+
+            <ul id="list"></ul>
+        </div>
+
+
+            <!--- TODO add ability to select contact from search results -->
+    <!--- TODO add ability to update selected contact -->
+    <!--- TODO add ability to delete selected contact -->
 
 
     <div id="loggedInDiv">
@@ -52,8 +56,8 @@
     </div>
 
 
-</body>
+    </body>
 
 </html>
 
-<script type="text/javascript" src="js/code.js"></script>
+
