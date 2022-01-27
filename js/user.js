@@ -24,15 +24,16 @@ function doLogin() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-                userId = jsonObject.id;
+                returnId = jsonObject.id;
 
-                if (userId < 1) {
+                if (returnId < 1) {
                     document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
                     return;
                 }
 
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
+                userId = returnId;
 
                 saveCookie();
 
@@ -60,10 +61,10 @@ function doRegister() {
     firstName = "";
     lastName = "";
 
-    firstName = document.getElementById("firstName").value;
-    lastName = document.getElementById("lastName").value;
-    let login = document.getElementById("login").value;
-    let password = document.getElementById("password").value;
+    firstName = document.getElementById("newFirstName").value;
+    lastName = document.getElementById("newLastName").value;
+    let login = document.getElementById("newLogin").value;
+    let password = document.getElementById("newPassword").value;
     var hash = md5(password);
 
     document.getElementById("registrationResult").innerHTML = "";
@@ -86,7 +87,7 @@ function doRegister() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-                userId = jsonObject.id;
+                returnId = jsonObject.id;
 
                 if (returnId == 0) {
                     document.getElementById("registrationResult").innerHTML = "User name already exists.";
@@ -97,8 +98,6 @@ function doRegister() {
                 else {
                     document.getElementById("registrationResult").innerHTML = "Returned other error:" + returnId;
                 }
-
-                window.location.href = "login.html";
             }
         };
         xhr.send(jsonPayload);
