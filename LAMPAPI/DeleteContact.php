@@ -2,7 +2,8 @@
 
 	$inData = getRequestInfo();
 
-	// TODO: Define parameters
+	$ID = $inData["ID"];
+	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -11,7 +12,18 @@
 	}
 	else
 	{
-		// TODO: Create contact deleting functionality
+		// Sets the query for deleting a contact based on the contact id and user id
+		$query = 'DELETE FROM Contacts WHERE ID = ? AND UserID = ?;';
+
+		// The deleting magic happens
+		$stmt = $conn->prepare($query);
+		$stmt->bind_param("ss", $ID, $userId);
+		$stmt->execute();
+
+		$stmt->close();
+		$conn->close();
+
+		returnWithInfo($ID, "Successfully deleted.");
 	}
 
 	function getRequestInfo()
@@ -31,10 +43,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithInfo($id, $message)
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
-		sendResultInfoAsJson( $retValue );
+		$retValue = '{"id":' . $id . ',"message":"' . $message . '"}';
+		sendResultInfoAsJson($retValue);
 	}
-
 ?>
