@@ -2,7 +2,6 @@
 
 	$inData = getRequestInfo();
 
-	$searchResults = "";
 	$searchCount = 0;
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
@@ -14,21 +13,34 @@
 	{
 		// This does allow for search right now. Need to modify to display not
 		// just name but last name, email, etc.
-		$stmt = $conn->prepare("select firstName from Contacts where firstName like ? and UserID=?");
+
+		$query = "SELECT firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,ID,UserID";
+		$query .= " FROM Contacts WHERE firstName like ? and UserID=?";
+
+		$stmt = $conn->prepare($query);
 		$firstName = "%" . $inData["search"] . "%";
 		$stmt->bind_param("ss", $firstName, $inData["userId"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
+		$resultArray = array();
 
 		while($row = $result->fetch_assoc())
 		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
+			$resultArray[$searchCount] = array(
+				"firstName" => $row["firstName"],
+				"lastName" => $row["lastName"],
+				"emailAddress" => $row["email"],
+				"phoneNumber" => $row["phoneNumber"],
+				"streetAddress" => $row["streetAddress"],
+				"city" => $row["city"],
+				"state" => $row["state"],
+				"zip" => $row["zip"],
+				"contactId" => $row["ID"],
+				"userId" => $row["UserID"]
+			);
+
 			$searchCount++;
-			$searchResults .= '"' . $row["firstName"] . '"';
 		}
 
 		if( $searchCount == 0 )
@@ -37,7 +49,7 @@
 		}
 		else
 		{
-			returnWithInfo( $searchResults );
+			returnWithArray($resultArray);
 		}
 
 		$stmt->close();
@@ -61,9 +73,11 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithArray( $searchResultArray )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"id":-1,"error":""}';
+		$json = json_encode($searchResultArray, JSON_PRETTY_PRINT);
+		$retValue = '{"results":' . $json . ',"id":-1,"error":""}';
+		//echo ;
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
