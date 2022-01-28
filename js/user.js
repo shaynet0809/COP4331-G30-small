@@ -98,6 +98,8 @@ function doRegister() {
                 else {
                     document.getElementById("registrationResult").innerHTML = "Returned other error:" + returnId;
                 }
+
+                window.location.href = "index.html";
             }
         };
         xhr.send(jsonPayload);

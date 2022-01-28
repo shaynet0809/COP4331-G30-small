@@ -14,7 +14,7 @@ function addContact() {
     let validContact = false;
 
     // error messages
-    let nameError = "Fist and last name required.";
+    let nameError = "First and last name required.";
     let addressError = "Partial address not allowed.";
     let contactMethodError = "At least one form of contact is required.";
 

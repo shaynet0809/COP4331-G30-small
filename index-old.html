@@ -1,0 +1,53 @@
+<!--- COP 4331-Spr22 Small Project Group 30 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ContaX</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/user.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1 id="title">Welcome to ContaX</h1>
+
+    <div id="loginDiv">
+        <div class="topnav">
+            <a class="active" href='http://justkeeptesting.xyz/index.html'>Home</a>
+        </div>
+    </div>
+
+    <div id="accessUIDiv">
+        <br />
+        <div class="parent">
+            <div class="div1">
+                <h4>Register</h4><br />
+                <input type="text" id="newFirstName" placeholder="First Name" minlength="1" maxlength="25" required /><br />
+                <input type="text" id="newLastName" placeholder="Last Name" minlength="1" maxlength="25" required /><br />
+                <input type="text" id="newLogin" placeholder="Username" minlength="4" maxlength="25" required /><br />
+                <input type="password" id="newPassword" placeholder="Password" minlength="4" maxlength="25" required /><br />
+                <button type="button" id="loginButton" class="buttons" onclick="doRegister();"> Register </button>
+            </div>
+            <div class="div2">
+                <form>
+                    <h4>Login</h4>
+                    <input type="text" id="login" placeholder="Username" /><br />
+                    <input type="password" id="password" placeholder="Password" /><br />
+                    <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log-In </button>
+                    <span id="loginResult"></span>
+                </form>
+                <span id="registrationResult"></span>
+            </div>
+        </div>
+
+        <!--
+            <button type="button" id="selectLoginButton" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/login.html';"> Log-In </button>
+            <button type="button" id="selectRegisterButton" class="buttons" onclick="window.location.href='http://justkeeptesting.xyz/register.html';"> Register </button>
+         -->
+
+    </div>
+</body>
+</html>
+
