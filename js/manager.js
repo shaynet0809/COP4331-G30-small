@@ -229,7 +229,9 @@ function searchContacts() {
                     document.getElementById("searchContactsResult").innerHTML = "Search completed with matches.";
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
-                        contactList += jsonObject.results[i];
+                        contactList += "Contact ID: " + jsonObject.results[i].userId + " Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
+                            " Phone: " + jsonObject.results[i].phoneNumber + " Street Address: " + jsonObject.results[i].streetAddress +
+                            " City: " + jsonObject.results[i].city + " State: " + jsonObject.results[i].state + " Zip: " + jsonObject.results[i].zip;
                         if (i < jsonObject.results.length - 1) {
                             contactList += "<br />\r\n";
                         }
