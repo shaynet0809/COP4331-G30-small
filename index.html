@@ -41,16 +41,16 @@
         <div class="row my-custom-row justify-content-center align-items-center gx-5">
             <div class="col-sm-4">
                 <div class="p-3 border bg-light">
-                    <form>
+                    <form onsubmit="doLogin()" class="row g-3 needs-validation" novalidate>
                         <div class="mb-3">
                             <label for="login" class="form-label">User Name</label>
-                            <input type="text" class="form-control" id="login">
+                            <input type="text" class="form-control" id="login" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" required>
                         </div>
-                        <button type="submit" class="btn btn-secondary" onclick="doLogin();">Submit</button>
+                        <button type="submit" class="btn btn-secondary">Submit</button>
                         <span id="loginResult"></span>
                     </form>
                 </div>

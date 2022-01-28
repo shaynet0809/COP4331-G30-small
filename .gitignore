@@ -1,3 +1,9 @@
 # exclude Visual Studio specific files
 .vs
 test.html
+add-contact-old.html
+index-old.html
+landing-page.html
+manager-old.html
+register-old.html
+login.html

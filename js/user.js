@@ -1,6 +1,7 @@
 /** COP 4331-Spr22 Small Project Group 30 */
 
 function doLogin() {
+
     userId = 0;
     firstName = "";
     lastName = "";
