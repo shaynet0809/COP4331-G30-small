@@ -15,11 +15,12 @@
 		// just name but last name, email, etc.
 
 		$query = "SELECT firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,ID,UserID";
-		$query .= " FROM Contacts WHERE firstName like ? and UserID=?";
+		$query .= " FROM Contacts WHERE ((firstName like ?) or (lastName like ?)) and UserID=?";
 
 		$stmt = $conn->prepare($query);
 		$firstName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $firstName, $inData["userId"]);
+		$lastName = "%" . $inData["search"] . "%";
+		$stmt->bind_param("sss", $firstName, $lastName, $inData["userId"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
