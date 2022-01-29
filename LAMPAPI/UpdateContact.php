@@ -2,7 +2,6 @@
 
 	$inData = getRequestInfo();
 
-	// TODO: Define parameters
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
 	$phoneNumber = $inData["phoneNumber"];
@@ -22,11 +21,11 @@
 	}
 	else
 	{
-		// TODO: Create contact updating functionality
 		//$query = "UPDATE Contacts SET firstName='". $firstName ."' WHERE ID='". $contactId ."'";
-		$query = "UPDATE Contacts SET firstName=?,lastName=?,phoneNumber=?,email=?,streetAddress=?,city=?,state=?,zip=? WHERE ID=?";
+		// Get contact and update
+		$query = "UPDATE Contacts SET firstName=?,lastName=?,phoneNumber=?,email=?,streetAddress=?,city=?,state=?,zip=? WHERE UserID=?,ID=?";
 		$stmt = $conn->prepare($query);
-		$stmt->bind_param("sssssssss",$firstName,$lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$contactId);
+		$stmt->bind_param("ssssssssss",$firstName,$lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$userId,$contactId);
 
 		$stmt->execute();
 
@@ -34,11 +33,6 @@
 		$conn->close();
 
 		returnWithError(-1,"");
-/*
-		// Add contact
-		$stmt = $conn->prepare($query);
-		$stmt->bind_param("sssssssss", $firstName, $lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$userId);
-		$stmt->execute();*/
 	}
 
 	function getRequestInfo()
