@@ -304,16 +304,16 @@ function searchContacts() {
                         zipCell.innerHTML = jsonObject.results[i].zip;
 
                         var editCell = row.insertCell(8)
-                         editCell.innerHTML = '<i class="fas fa-edit"></i>';
+                         //editCell.innerHTML = '<i class="fas fa-edit"></i>';
+                         editCell.innerHTML = '<button outline="none" onclick=window.location="update-contact.html"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
                             
-                         var deleteCell = row.insertCell(9)
-                         deleteCell.innerHTML = '<i class="fas fa-trash-alt"></i>'
+                        var deleteCell = row.insertCell(9)
+                         //deleteCell.innerHTML = '<i class="fas fa-trash-alt"></i>'
 
-                        //deleteCell.innerHTML = '<button onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
-
+                        deleteCell.innerHTML = '<button outline="none" onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
+                        //deleteCell.innerHTML = '<a onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></a>';
                      }
                     
-
 
                 }
                 else {
