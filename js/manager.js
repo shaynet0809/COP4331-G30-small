@@ -233,6 +233,8 @@ function searchContacts() {
 
                 if (returnId == 0) {
                     document.getElementById("searchContactsResult").innerHTML = "Search completed without matches.";
+                    var table = document.getElementById("contactTable");
+                    table.innerHTML = "";
                 }
                 else if (returnId == -1) {
 
@@ -274,8 +276,8 @@ function searchContacts() {
                     deleteCell.innerHTML = "Delete";
 
 
-                     for (let i = 0; i < jsonObject.results.length; i++) {
-   
+                    for (let i = 0; i < jsonObject.results.length; i++) {
+
 
                         row = table.insertRow(1);
 
@@ -304,19 +306,18 @@ function searchContacts() {
                         zipCell.innerHTML = jsonObject.results[i].zip;
 
                         var editCell = row.insertCell(8)
-                         //editCell.innerHTML = '<i class="fas fa-edit"></i>';
-                         editCell.innerHTML = '<button outline="none" onclick=window.location="update-contact.html"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
-                            
+                        editCell.innerHTML = '<button outline="none" onclick=window.location="update-contact.html"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
+
                         var deleteCell = row.insertCell(9)
-                         //deleteCell.innerHTML = '<i class="fas fa-trash-alt"></i>'
-
                         deleteCell.innerHTML = '<button outline="none" onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
-                        //deleteCell.innerHTML = '<a onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></a>';
-                     }
-                    
 
-                }
-                else {
+
+
+
+                    }
+                }else
+                {
+
                      document.getElementById("searchContactsResult").innerHTML = "Returned other error:" + returnId;
                 }
             }
