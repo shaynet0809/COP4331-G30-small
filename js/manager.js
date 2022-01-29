@@ -304,9 +304,11 @@ function searchContacts() {
                         zipCell.innerHTML = jsonObject.results[i].zip;
 
                         var editCell = row.insertCell(8)
-                        //editCell.innerHTML = `<span style="font-size: 1rem;"><span style="color: Mediumslateblue;"><i class="fas fa-edit"></i></span></span>`;
+                         editCell.innerHTML = '<i class="fas fa-edit"></i>';
                             
-                        var deleteCell = row.insertCell(9)
+                         var deleteCell = row.insertCell(9)
+                         deleteCell.innerHTML = '<i class="fas fa-trash-alt"></i>'
+
                         //deleteCell.innerHTML = '<button onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
 
                      }
