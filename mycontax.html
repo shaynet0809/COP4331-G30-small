@@ -13,6 +13,25 @@
         }, false);
     </script>
 
+    <!--
+      <script type="text/javascript">
+
+        var targetContact;
+
+        document.getElementById("deleteButton").addEventListener("click", deleteContact());
+
+
+        function deleteContact(targetContact) {
+
+            // place warning pop up here "Are you sure?"
+            doDelete(targetContact);
+        }
+
+    </script>
+
+        -->
+
+
 </head>
 <body onload="searchContacts()">
 
@@ -57,6 +76,8 @@
                     <div class="row justify-content-center align-items-center tp-20">
                         <span id="searchContactsResult"></span>
                         <table id="contactTable"></table>
+                        <button id="deleteButton" onclick="doDelete(65)">Delete Micky</button>
+                        <span id="contactDeleteResult"></span>
                     </div>
                 </div>
             </div>

@@ -138,12 +138,14 @@ function addContact() {
     }
 }
 
-function doDelete(contactId, userId) {
+function doDelete(contactId) {
 
     // contactId and userId should be provided by search function
 
     // let contactId = document.getElementById("contactId");
     // let userId = documnet.getElementById("userId");
+
+    let returnId = -2;
 
     let tmp = { contactId: contactId, userId: userId };
 
@@ -158,7 +160,19 @@ function doDelete(contactId, userId) {
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted.";
+
+                let jsonObject = JSON.parse(xhr.responseText);
+                returnId = jsonObject.id;
+
+                if (returnId == 0) {
+                    document.getElementById("contactAddResult").innerHTML = "Returned 0";
+                }
+                else if (returnId == -1) {
+                    document.getElementById("contactAddResult").innerHTML = "Contact has been deleted.";
+                }
+                else {
+                    document.getElementById("contactAddResult").innerHTML = "Returned other error:" + returnId;
+                }
             }
         };
         xhr.send(jsonPayload);
@@ -241,79 +255,14 @@ function searchContacts() {
 
                     var table = document.getElementById("contactTable");
 
-                    table.innerHTML = "";
+                    var contactId = -1;
 
-                    var row = table.insertRow(0);
-
-                    var lastNameCell = row.insertCell(0);
-                    lastNameCell.innerHTML = "Last Name";
-
-                    var firstNameCell = row.insertCell(1);
-                    firstNameCell.innerHTML = "First Name";
-
-                    var emailCell = row.insertCell(2);
-                    emailCell.innerHTML = "Email";
-
-                    var phoneCell = row.insertCell(3);
-                    phoneCell.innerHTML = "Phone";
-
-                    var streetAddressCell = row.insertCell(4);
-                    streetAddressCell.innerHTML = "Street Address";
-
-                    var cityCell = row.insertCell(5);
-                    cityCell.innerHTML = "City";
-
-                    var stateCell = row.insertCell(6);
-                    stateCell.innerHTML = "State";
-
-                    var zipCell = row.insertCell(7);
-                    zipCell.innerHTML = "Zip";
-
-                    var editCell = row.insertCell(8)
-                    editCell.innerHTML = "Edit";
-
-                    var deleteCell = row.insertCell(9)
-                    deleteCell.innerHTML = "Delete";
+                    var row = setTable();
 
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
 
-
-                        row = table.insertRow(1);
-
-                        var lastNameCell = row.insertCell(0);
-                        lastNameCell.innerHTML = jsonObject.results[i].lastName;
-
-                        var firstNameCell = row.insertCell(1);
-                        firstNameCell.innerHTML = jsonObject.results[i].firstName;
-
-                        var emailCell = row.insertCell(2);
-                        emailCell.innerHTML = jsonObject.results[i].emailAddress;
-
-                        var phoneCell = row.insertCell(3);
-                        phoneCell.innerHTML = jsonObject.results[i].phoneNumber;
-
-                        var streetAddressCell = row.insertCell(4);
-                        streetAddressCell.innerHTML = jsonObject.results[i].streetAddress;
-
-                        var cityCell = row.insertCell(5);
-                        cityCell.innerHTML = jsonObject.results[i].city;
-
-                        var stateCell = row.insertCell(6);
-                        stateCell.innerHTML = jsonObject.results[i].state;
-
-                        var zipCell = row.insertCell(7);
-                        zipCell.innerHTML = jsonObject.results[i].zip;
-
-                        var editCell = row.insertCell(8)
-                        editCell.innerHTML = '<button outline="none" onclick=window.location="update-contact.html"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
-
-                        var deleteCell = row.insertCell(9)
-                        deleteCell.innerHTML = '<button outline="none" onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
-
-
-
-
+                        setRow(table, jsonObject, row, i);
                     }
                 }else
                 {
@@ -344,4 +293,99 @@ function setSelectedIndex(s, v) {
             return;
         }
     }
+}
+
+function setTable(table) {
+
+    table = document.getElementById("contactTable");
+
+    table.innerHTML = "";
+
+    var row = table.insertRow(0);
+
+    var lastNameCell = row.insertCell(0);
+    lastNameCell.innerHTML = "Last Name";
+
+    var firstNameCell = row.insertCell(1);
+    firstNameCell.innerHTML = "First Name";
+
+    var emailCell = row.insertCell(2);
+    emailCell.innerHTML = "Email";
+
+    var phoneCell = row.insertCell(3);
+    phoneCell.innerHTML = "Phone";
+
+    var streetAddressCell = row.insertCell(4);
+    streetAddressCell.innerHTML = "Street Address";
+
+    var cityCell = row.insertCell(5);
+    cityCell.innerHTML = "City";
+
+    var stateCell = row.insertCell(6);
+    stateCell.innerHTML = "State";
+
+    var zipCell = row.insertCell(7);
+    zipCell.innerHTML = "Zip";
+
+    var editCell = row.insertCell(8)
+    editCell.innerHTML = "Edit";
+
+    var deleteCell = row.insertCell(9)
+    deleteCell.innerHTML = "Delete";
+
+    return row;
+}
+
+function setRow(table, jsonObject, row, i) {
+
+    row = table.insertRow(1);
+
+    contactId = jsonObject.results[i].contactId;
+
+    var lastNameCell = row.insertCell(0);
+    lastNameCell.innerHTML = jsonObject.results[i].lastName;
+
+    var firstNameCell = row.insertCell(1);
+    firstNameCell.innerHTML = jsonObject.results[i].firstName;
+
+    var emailCell = row.insertCell(2);
+    emailCell.innerHTML = jsonObject.results[i].emailAddress;
+
+    var phoneCell = row.insertCell(3);
+    phoneCell.innerHTML = jsonObject.results[i].phoneNumber;
+
+    var streetAddressCell = row.insertCell(4);
+    streetAddressCell.innerHTML = jsonObject.results[i].streetAddress;
+
+    var cityCell = row.insertCell(5);
+    cityCell.innerHTML = jsonObject.results[i].city;
+
+    var stateCell = row.insertCell(6);
+    stateCell.innerHTML = jsonObject.results[i].state;
+
+    var zipCell = row.insertCell(7);
+    zipCell.innerHTML = jsonObject.results[i].zip;
+
+    var editCell = row.insertCell(8)
+    //editCell.innerHTML = '<button id="editButton" onClick="targetContact(contactId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
+    let eButton = document.createElement("button");
+    eButton.name = "editButton";
+    eButton.value = contactId;
+    eButton.className = "iconButton";
+    eButton.onclick = function () { window.location.href = "update-contact.html"; };
+    eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
+    editCell.appendChild(eButton);
+
+
+
+    var deleteCell = row.insertCell(9)
+    //deleteCell.innerHTML = '<button id="deleteButton" onClick="targetContact('contactId')"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
+
+    let dButton = document.createElement("button");
+    dButton.name = "deleteButton";
+    dButton.value = contactId;
+    dButton.className = "iconButton";
+    dButton.onclick = function () { doDelete(contactId) };
+    dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span >';
+    deleteCell.appendChild(dButton);
 }
