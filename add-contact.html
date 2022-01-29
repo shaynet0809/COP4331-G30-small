@@ -49,18 +49,18 @@
             <div class="col-sm-6 col-md-8 col-lg-10 mt-3">
                 <div class="p-3 border bg-light">
                     <div class="row justify-content-center align-items-center">New Contact</div>
-                    <form>
+                    <form id="addForm">
                         <div class="mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
+                            <label for="firstName" class="form-label">First Name *</label>
                             <input type="text" class="form-control" id="firstName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
+                            <label for="lastName" class="form-label">Last Name *</label>
                             <input type="text" class="form-control" id="lastName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber">
+                            <label for="phoneNumber" class="form-label">Phone Number (Format: 555-555-5555)</label>
+                            <input type="tel" class="form-control" id="phoneNumber" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>

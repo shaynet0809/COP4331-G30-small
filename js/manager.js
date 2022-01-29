@@ -8,6 +8,7 @@ function addContact() {
 
     // control variables
     let fullName = false;
+    let invalidPhone = false;
     let partialAddress = false;
     let completeAddress = false;
     let minimumContact = false;
@@ -15,6 +16,7 @@ function addContact() {
 
     // error messages
     let nameError = "First and last name required.";
+    let phoneError = "Invalid phone number. Correct format: 555-555-5555";
     let addressError = "Partial address not allowed.";
     let contactMethodError = "At least one form of contact is required.";
 
@@ -34,6 +36,17 @@ function addContact() {
 
     if ((newFirstName != "") && (newLastName != "")) {
         fullName = true;
+    }
+
+    // Validate correct format of phone number
+
+    if (newPhoneNumber != "") {
+
+        var reg = new RegExp("[0-9]{3}-[0-9]{3}-[0-9]{4}");
+
+        if (!reg.test(newPhoneNumber)) {
+            invalidPhone = true;
+        }
     }
 
     // Check if any address fields are populated
@@ -56,13 +69,17 @@ function addContact() {
     }
 
     // Check if form is valid overall
-    if ((fullName) && (!partialAddress) && (minimumContact)) {
+    if ((fullName) && (!invalidPhone)&& (!partialAddress) && (minimumContact)) {
         validContact = true;
     }
     else {
 
         if (!fullName) {
             document.getElementById("contactAddResult").innerHTML += nameError + '<br />';
+        }
+
+        if (invalidPhone) {
+            document.getElementById("contactAddResult").innerHTML += phoneError + '<br />';
         }
 
         if (partialAddress) {
@@ -105,6 +122,7 @@ function addContact() {
                     }
                     else if (returnId == -1) {
                         document.getElementById("contactAddResult").innerHTML = "Contact added successfully.";
+                        document.getElementById("addForm").reset();
                     }
                     else {
                         document.getElementById("contactAddResult").innerHTML = "Returned other error:" + returnId;
@@ -120,7 +138,7 @@ function addContact() {
     }
 }
 
-function doDelete() {
+function doDelete(contactId, userId) {
 
     // contactId and userId should be provided by search function
 
@@ -215,72 +233,103 @@ function searchContacts() {
 
                 if (returnId == 0) {
                     document.getElementById("searchContactsResult").innerHTML = "Search completed without matches.";
-                    document.getElementsByTagName("p")[0].innerHTML = "";
                 }
                 else if (returnId == -1) {
 
-                    for (let i = 0; i < jsonObject.results.length; i++) {
-                        contactList +="Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
-                            " Phone: " + jsonObject.results[i].phoneNumber + " Street Address: " + jsonObject.results[i].streetAddress +
-                            " City: " + jsonObject.results[i].city + " State: " + jsonObject.results[i].state + " Zip: " + jsonObject.results[i].zip;
-                        if (i < jsonObject.results.length - 1) {
-                            contactList += "<br />\r\n";
-                        }
-                    }
-                    /*
+
                     var table = document.getElementById("contactTable");
 
+                    table.innerHTML = "";
 
-                    for (let i = 0; i < jsonObject.results.length; i++) {
+                    var row = table.insertRow(0);
 
-                        var row = table.insertRow(i);
+                    var lastNameCell = row.insertCell(0);
+                    lastNameCell.innerHTML = "Last Name";
 
-                        var cell1 = row.insertCell(jsonObject.results[i].contactId);
-                        var cell2 = row.insertCell(jsonObject.results[i].lastName);
-                        var cell3 = row.insertCell(jsonObject.results[i].firstName);
-                        var cell4 = row.insertCell(jsonObject.results[i].email);
-                        var cell5 = row.insertCell(jsonObject.results[i].phoneNumber);
-                        var cell6 = row.insertCell(jsonObject.results[i].streetAddress);
-                        var cell7 = row.insertCell(jsonObject.results[i].city);
-                        var cell8 = row.insertCell(jsonObject.results[i].state);
-                        var cell9 = row.insertCell(jsonObject.results[i].zip);
+                    var firstNameCell = row.insertCell(1);
+                    firstNameCell.innerHTML = "First Name";
 
-                    }*/
+                    var emailCell = row.insertCell(2);
+                    emailCell.innerHTML = "Email";
+
+                    var phoneCell = row.insertCell(3);
+                    phoneCell.innerHTML = "Phone";
+
+                    var streetAddressCell = row.insertCell(4);
+                    streetAddressCell.innerHTML = "Street Address";
+
+                    var cityCell = row.insertCell(5);
+                    cityCell.innerHTML = "City";
+
+                    var stateCell = row.insertCell(6);
+                    stateCell.innerHTML = "State";
+
+                    var zipCell = row.insertCell(7);
+                    zipCell.innerHTML = "Zip";
+
+                    var editCell = row.insertCell(8)
+                    editCell.innerHTML = "Edit";
+
+                    var deleteCell = row.insertCell(9)
+                    deleteCell.innerHTML = "Delete";
+
+
+                     for (let i = 0; i < jsonObject.results.length; i++) {
+   
+
+                        row = table.insertRow(1);
+
+                        var lastNameCell = row.insertCell(0);
+                        lastNameCell.innerHTML = jsonObject.results[i].lastName;
+
+                        var firstNameCell = row.insertCell(1);
+                        firstNameCell.innerHTML = jsonObject.results[i].firstName;
+
+                        var emailCell = row.insertCell(2);
+                        emailCell.innerHTML = jsonObject.results[i].emailAddress;
+
+                        var phoneCell = row.insertCell(3);
+                        phoneCell.innerHTML = jsonObject.results[i].phoneNumber;
+
+                        var streetAddressCell = row.insertCell(4);
+                        streetAddressCell.innerHTML = jsonObject.results[i].streetAddress;
+
+                        var cityCell = row.insertCell(5);
+                        cityCell.innerHTML = jsonObject.results[i].city;
+
+                        var stateCell = row.insertCell(6);
+                        stateCell.innerHTML = jsonObject.results[i].state;
+
+                        var zipCell = row.insertCell(7);
+                        zipCell.innerHTML = jsonObject.results[i].zip;
+
+                        var editCell = row.insertCell(8)
+                        //editCell.innerHTML = `<span style="font-size: 1rem;"><span style="color: Mediumslateblue;"><i class="fas fa-edit"></i></span></span>`;
+                            
+                        var deleteCell = row.insertCell(9)
+                        //deleteCell.innerHTML = '<button onclick="doDelete(jsonObject.results[i].contactId, jsonObject.results[i].userId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
+
+                     }
                     
 
 
-                    document.getElementsByTagName("p")[0].innerHTML = contactList;
                 }
                 else {
-                    document.getElementById("searchContactsResult").innerHTML = "Returned other error:" + returnId;
+                     document.getElementById("searchContactsResult").innerHTML = "Returned other error:" + returnId;
                 }
-
-
-
-                // TODO load list of contacts into dropdown box or similar object
-                // when user submits selection, change contactSelected to "true"
-
-
-                /** 
-                 if (contactSelected == true) {
-                     
-                     document.getElementById("conditionalUpdate").innerHTML = '<a href="http://justkeeptesting.xyz/update-contact.html"><button>Update Contact</button></a>';
-                     document.getElementById("conditionalDelte").innerHTML = '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete Contact </button>';
- 
-                 }
-                 */
-
             }
         };
         xhr.send(jsonPayload);
     }
     catch (err) {
-        // TODO ask API if they can add an error for zero results found
         document.getElementById("searchContactsResult").innerHTML = err.message;
     }
 
 }
 
+
+// Intended to use with update
+// Is supposed to populate the state field with the current contact's value
 function setSelectedIndex(s, v) {
 
     for (var i = 0; i < s.options.length; i++) {
