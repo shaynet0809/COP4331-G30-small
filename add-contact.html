@@ -16,9 +16,9 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ContaX</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
+        <a class="navbar-brand" href="manager.html">ContaX</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -28,7 +28,7 @@
                     <a class="nav-link" href="manager.html">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link active" href="add-contact.html">Add Contact<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="add-contact.html">Add Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="manager.html">View All</a>
@@ -41,19 +41,15 @@
                 </li>
             </ul>
         </div>
+        <span class="nav-text">
+            <span id="userName"></span>
+        </span>
     </nav>
-
-    <style>
-        .my-custom-row {
-            background-color: bisque;
-            height: 850px;
-        }
-    </style>
 
     <div class="container">
 
         <div class="row my-custom-row justify-content-center align-items-center gx-5">
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-md-8 col-lg-10 mt-3">
                 <div class="p-3 border bg-light">
                     <div class="row justify-content-center align-items-center">New Contact</div>
                     <form>

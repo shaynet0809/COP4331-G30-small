@@ -198,11 +198,11 @@ function searchContacts() {
     let contactList = "";
     let returnId = -2;
 
-    if (search == "") {
+    /*if (search == "") {
         document.getElementById("searchContactsResult").innerHTML = "Oops, you're searching for nothing. Try again.";
         document.getElementsByTagName("p")[0].innerHTML = "";
         return;
-    }
+    }*/
 
     let tmp = { search: search, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -226,16 +226,37 @@ function searchContacts() {
                     document.getElementsByTagName("p")[0].innerHTML = "";
                 }
                 else if (returnId == -1) {
-                    document.getElementById("searchContactsResult").innerHTML = "Search completed with matches.";
+                    // document.getElementById("searchContactsResult").innerHTML = "Search completed with matches.";
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
-                        contactList += "Contact ID: " + jsonObject.results[i].userId + " Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
+                        contactList += "Contact ID: " + jsonObject.results[i].contactId + " Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
                             " Phone: " + jsonObject.results[i].phoneNumber + " Street Address: " + jsonObject.results[i].streetAddress +
                             " City: " + jsonObject.results[i].city + " State: " + jsonObject.results[i].state + " Zip: " + jsonObject.results[i].zip;
                         if (i < jsonObject.results.length - 1) {
                             contactList += "<br />\r\n";
                         }
                     }
+                    /*
+                    var table = document.getElementById("contactTable");
+
+
+                    for (let i = 0; i < jsonObject.results.length; i++) {
+
+                        var row = table.insertRow(i);
+
+                        var cell1 = row.insertCell(jsonObject.results[i].contactId);
+                        var cell2 = row.insertCell(jsonObject.results[i].lastName);
+                        var cell3 = row.insertCell(jsonObject.results[i].firstName);
+                        var cell4 = row.insertCell(jsonObject.results[i].email);
+                        var cell5 = row.insertCell(jsonObject.results[i].phoneNumber);
+                        var cell6 = row.insertCell(jsonObject.results[i].streetAddress);
+                        var cell7 = row.insertCell(jsonObject.results[i].city);
+                        var cell8 = row.insertCell(jsonObject.results[i].state);
+                        var cell9 = row.insertCell(jsonObject.results[i].zip);
+
+                    }*/
+                    
+
 
                     document.getElementsByTagName("p")[0].innerHTML = contactList;
                 }
@@ -267,4 +288,17 @@ function searchContacts() {
         document.getElementById("searchContactsResult").innerHTML = err.message;
     }
 
+}
+
+function setSelectedIndex(s, v) {
+
+    for (var i = 0; i < s.options.length; i++) {
+
+        if (s.options[i].text == v) {
+
+            s.options[i].selected = true;
+
+            return;
+        }
+    }
 }

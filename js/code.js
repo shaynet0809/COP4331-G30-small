@@ -67,7 +67,7 @@ function readCookie()
         window.location.href = "index.html";
     }
     else {
-        document.getElementById("userName").innerHTML = "Welcome " + firstName + " " + lastName;
+        document.getElementById("userName").innerHTML = "Hello " + firstName + " " + lastName + "!";
     }
 
 }

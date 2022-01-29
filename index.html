@@ -11,16 +11,16 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ContaX</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light gx-5 p-2">
+        <a class="navbar-brand" href="index.html">ContaX</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="register.html">Create Account</a>
@@ -29,19 +29,13 @@
         </div>
     </nav>
 
-    <style>
-        .my-custom-row {
-            background-color: bisque;
-            height: 600px;
-        }
-    </style>
 
     <div class="container">
 
         <div id="loginDiv" class="row my-custom-row justify-content-center align-items-center gx-5">
-            <div class="col-sm-4">
+            <div class="col-sm-6 col-md-8 col-lg-10 mt-3">
                 <div class="p-3 border bg-light">
-                    <form onsubmit="doLogin()" class="row g-3">
+                    <form class="row g-3">
                         <div class="mb-3">
                             <label for="login" class="form-label">User Name</label>
                             <input type="text" class="form-control" id="login" required>
@@ -50,11 +44,11 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" required>
                         </div>
-                        <button type="submit" class="btn btn-secondary">Submit</button>
-                        <div class="row justify-content-center align-items-center">
-                            <span id="loginResult"></span>
-                        </div>
                     </form>
+                    <button type="submit" class="btn btn-secondary" onclick="doLogin()">Submit</button>
+                    <div class="row justify-content-center align-items-center">
+                        <span id="loginResult"></span>
+                    </div>
                 </div>
             </div>
         </div>
