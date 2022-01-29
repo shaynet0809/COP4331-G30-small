@@ -25,16 +25,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="manager.html">Home</a>
+                    <a class="nav-link" href="mycontax.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="mycontax.html">MyContaX</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="add-contact.html">Add Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="manager.html">View All</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="search-contacts.html">Search</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" onclick="doLogout();">Logout</a>
@@ -53,8 +50,11 @@
             <div class="col-sm-6 col-md-8 col-lg-10 mt-3">
                 <div class="p-3 border bg-light">
                     <div class="row justify-content-center align-items-center">My ContaX</div>
-                    <div class="row justify-content-center align-items-center">
-                        <input type="hidden" id="searchText" value="" />
+                    <form>
+                        <input class="form-control me-2" type="search" id="searchText" placeholder="first or last name" aria-label="Search" required>
+                    </form>
+                    <button class="btn btn-outline-success" type="submit" id="searchButton" onclick="searchContacts();">Search</button>
+                    <div class="row justify-content-center align-items-center tp-10">
                         <span id="searchContactsResult"></span>
                         <p id="contactList"></p>
                     </div>

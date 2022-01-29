@@ -38,7 +38,7 @@ function doLogin() {
 
                 saveCookie();
 
-                window.location.href = "manager.html";
+                window.location.href = "mycontax.html";
             }
         };
         xhr.send(jsonPayload);

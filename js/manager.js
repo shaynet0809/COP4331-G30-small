@@ -198,16 +198,8 @@ function searchContacts() {
     let contactList = "";
     let returnId = -2;
 
-    /*if (search == "") {
-        document.getElementById("searchContactsResult").innerHTML = "Oops, you're searching for nothing. Try again.";
-        document.getElementsByTagName("p")[0].innerHTML = "";
-        return;
-    }*/
-
     let tmp = { search: search, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
-
-
 
     let url = urlBase + '/SearchContact.' + extension;
 
@@ -226,10 +218,9 @@ function searchContacts() {
                     document.getElementsByTagName("p")[0].innerHTML = "";
                 }
                 else if (returnId == -1) {
-                    // document.getElementById("searchContactsResult").innerHTML = "Search completed with matches.";
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
-                        contactList += "Contact ID: " + jsonObject.results[i].contactId + " Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
+                        contactList +="Name: " + jsonObject.results[i].lastName + ", " + jsonObject.results[i].firstName + " Email: " + jsonObject.results[i].emailAddress +
                             " Phone: " + jsonObject.results[i].phoneNumber + " Street Address: " + jsonObject.results[i].streetAddress +
                             " City: " + jsonObject.results[i].city + " State: " + jsonObject.results[i].state + " Zip: " + jsonObject.results[i].zip;
                         if (i < jsonObject.results.length - 1) {
