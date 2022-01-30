@@ -327,6 +327,8 @@ function searchContacts() {
     let search = document.getElementById("searchText").value;
 
     document.getElementById("searchContactsResult").innerHTML = "";
+    document.getElementById("updateForm").innerHTML = "";
+    document.getElementById("addForm").innerHTML = "";
 
     let contactList = "";
     let returnId = -2;
@@ -346,8 +348,15 @@ function searchContacts() {
                 let jsonObject = JSON.parse(xhr.responseText);
                 returnId = jsonObject.id;
 
-                if (returnId == 0) {
-                    document.getElementById("searchContactsResult").innerHTML = "Search completed without matches.";
+                if ((returnId == 0) && (search == "")) {
+
+                    document.getElementById("searchContactsResult").innerHTML = "Contact list empty. Please add contacts.";
+                    var table = document.getElementById("contactTable");
+                    table.innerHTML = "";
+                }
+                else if ((returnId == 0) && (search != "")) {
+
+                    document.getElementById("searchContactsResult").innerHTML = "Search complete. No matches found.";
                     var table = document.getElementById("contactTable");
                     table.innerHTML = "";
                 }
@@ -373,6 +382,8 @@ function searchContacts() {
             }
         };
         xhr.send(jsonPayload);
+
+        document.getElementById("searchText").value = "";
     }
     catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
@@ -406,37 +417,28 @@ function setTable(table) {
 
     table.innerHTML = "";
 
-    var row = table.insertRow(0);
+    var row = table.insertRow(-1);
 
-    var lastNameCell = row.insertCell(0);
-    lastNameCell.innerHTML = "Last Name";
+    var headers = new Array();
+    headers.push("Last Name");
+    headers.push("First Name");
+    headers.push("Phone");
+    headers.push("Email");
+    headers.push("Street Address");
+    headers.push("City");
+    headers.push("State");
+    headers.push("Zip");
+    headers.push("Edit");
+    headers.push("Delete");
 
-    var firstNameCell = row.insertCell(1);
-    firstNameCell.innerHTML = "First Name";
+    var columnCount = headers.length;
 
-    var emailCell = row.insertCell(2);
-    emailCell.innerHTML = "Email";
+    for (var i = 0; i < columnCount; i++) {
+        var headerCell = document.createElement("TH");
+        headerCell.innerHTML = headers[i];
+        row.appendChild(headerCell);
+    }
 
-    var phoneCell = row.insertCell(3);
-    phoneCell.innerHTML = "Phone";
-
-    var streetAddressCell = row.insertCell(4);
-    streetAddressCell.innerHTML = "Street Address";
-
-    var cityCell = row.insertCell(5);
-    cityCell.innerHTML = "City";
-
-    var stateCell = row.insertCell(6);
-    stateCell.innerHTML = "State";
-
-    var zipCell = row.insertCell(7);
-    zipCell.innerHTML = "Zip";
-
-    var editCell = row.insertCell(8)
-    editCell.innerHTML = "Edit";
-
-    var deleteCell = row.insertCell(9)
-    deleteCell.innerHTML = "Delete";
 
     return row;
 }
@@ -494,7 +496,12 @@ function editWindow(table, jsonObject, i) {
 
 
 
-    table.innerHTML = "";
+    var div = document.getElementById('addForm');
+
+
+
+    document.getElementById("contactTable").innerHTML = "";
+
     var contactWindowDiv = document.getElementById('updateWindow');
 
     var div = document.getElementById('updateForm');
@@ -593,7 +600,7 @@ function editWindow(table, jsonObject, i) {
     uButton.name = "updateButton";
     uButton.onclick = function () { doUpdate(jsonObject.results[i].contactId) };
     uButton.innerHTML = "Update Contact";
-    document.getElementById("updateWindow").appendChild(uButton);
+    document.getElementById("buttonDiv").appendChild(uButton);
   
 
 }
@@ -603,6 +610,8 @@ function addWindow() {
 
 
     document.getElementById("contactTable").innerHTML = "";
+    document.getElementById("addForm").innerHTML = "";
+    document.getElementById("buttonDiv").innerHTML = "";
 
     var contactWindowDiv = document.getElementById('addWindow');
 
@@ -684,11 +693,11 @@ function addWindow() {
     document.getElementById('addForm').innerHTML += '<label for="zip" class="form-label">Zip:</label>';
     document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="zip" placeholder="Zip">';
 
-    var uButton = document.createElement("button");
-    uButton.name = "addButton";
-    uButton.onclick = function () { addContact() };
-    uButton.innerHTML = "Add Contact";
-    document.getElementById("addWindow").appendChild(uButton);
+    var aButton = document.createElement("button");
+    aButton.name = "addButton";
+    aButton.onclick = function () { addContact() };
+    aButton.innerHTML = "Add Contact";
+    document.getElementById("buttonDiv").appendChild(aButton);
 
 
 }
@@ -705,9 +714,10 @@ function deleteCheck(contactId) {
 function refreshContacts() {
 
     document.getElementById("searchText").value = "";
-    document.getElementById("updateWindow").innerHTML = "";
+    document.getElementById("updateForm").innerHTML = "";
+    document.getElementById("addForm").innerHTML = "";
+    document.getElementById("buttonDiv").innerHTML = "";
     document.getElementById("updateResult").innerHTML = "";
-    document.getElementById("addWindow").innerHTML = "";
     document.getElementById("addContactResult").innerHTML = "";
     document.getElementById("searchContactsResult").innerHTML = "";
     document.getElementById("deleteContactResult").innerHTML = "";
