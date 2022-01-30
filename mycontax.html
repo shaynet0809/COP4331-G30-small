@@ -13,25 +13,6 @@
         }, false);
     </script>
 
-    <!--
-      <script type="text/javascript">
-
-        var targetContact;
-
-        document.getElementById("deleteButton").addEventListener("click", deleteContact());
-
-
-        function deleteContact(targetContact) {
-
-            // place warning pop up here "Are you sure?"
-            doDelete(targetContact);
-        }
-
-    </script>
-
-        -->
-
-
 </head>
 <body onload="searchContacts()">
 
@@ -73,11 +54,12 @@
                         <input class="form-control me-2" type="search" id="searchText" placeholder="Enter a first or last name to search." aria-label="Search" required>
                     </form>
                     <button class="btn btn-outline-success" type="submit" id="searchButton" onclick="searchContacts();">Search</button>
-                    <div class="row justify-content-center align-items-center tp-20">
+                    <button class="btn btn-outline-success" type="button" id="refreshButton" onclick="refreshContacts();">Refresh</button>
+                    <div id="contactWindow" class="row justify-content-center align-items-center tp-20">
                         <span id="searchContactsResult"></span>
+                        <span id="deleteContactResult"></span>
                         <table id="contactTable"></table>
-                        <button id="deleteButton" onclick="doDelete(65)">Delete Micky</button>
-                        <span id="contactDeleteResult"></span>
+                        <form id="updateForm"></form>
                     </div>
                 </div>
             </div>

@@ -164,21 +164,23 @@ function doDelete(contactId) {
                 let jsonObject = JSON.parse(xhr.responseText);
                 returnId = jsonObject.id;
 
-                if (returnId == 0) {
-                    document.getElementById("contactAddResult").innerHTML = "Returned 0";
+                if (returnId == contactId) {
+
+                    document.getElementById("deleteContactResult").innerHTML = "Contact has been deleted.";
+                    location.reload();
                 }
                 else if (returnId == -1) {
-                    document.getElementById("contactAddResult").innerHTML = "Contact has been deleted.";
+                    document.getElementById("deleteContactResult").innerHTML = "Requested contact not found. Deletion canceled.";
                 }
                 else {
-                    document.getElementById("contactAddResult").innerHTML = "Returned other error:" + returnId;
+                    document.getElementById("deleteContactResult").innerHTML = "Other error" + returnId;
                 }
             }
         };
         xhr.send(jsonPayload);
     }
     catch (err) {
-        document.getElementById("deleteResult").innerHTML = err.message;
+        document.getElementById("deleteContactResult").innerHTML = err.message;
     }
 }
 
@@ -262,7 +264,7 @@ function searchContacts() {
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
 
-                        setRow(table, jsonObject, row, i);
+                        setRow(table, jsonObject, row, i, jsonObject.results[i].contactId);
                     }
                 }else
                 {
@@ -336,11 +338,9 @@ function setTable(table) {
     return row;
 }
 
-function setRow(table, jsonObject, row, i) {
+function setRow(table, jsonObject, row, i, contactId) {
 
     row = table.insertRow(1);
-
-    contactId = jsonObject.results[i].contactId;
 
     var lastNameCell = row.insertCell(0);
     lastNameCell.innerHTML = jsonObject.results[i].lastName;
@@ -367,25 +367,93 @@ function setRow(table, jsonObject, row, i) {
     zipCell.innerHTML = jsonObject.results[i].zip;
 
     var editCell = row.insertCell(8)
-    //editCell.innerHTML = '<button id="editButton" onClick="targetContact(contactId)"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span ></button>';
     let eButton = document.createElement("button");
     eButton.name = "editButton";
     eButton.value = contactId;
     eButton.className = "iconButton";
-    eButton.onclick = function () { window.location.href = "update-contact.html"; };
+    //eButton.onclick = function () { window.location.href = "update-contact.html"; };
+    eButton.onclick = function () { editWindow(table, jsonObject, i) };
     eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
     editCell.appendChild(eButton);
 
 
 
-    var deleteCell = row.insertCell(9)
-    //deleteCell.innerHTML = '<button id="deleteButton" onClick="targetContact('contactId')"><span style="font-size: 1rem;"><span style = "color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span ></button>';
-
+    var deleteCell = row.insertCell(9);
     let dButton = document.createElement("button");
     dButton.name = "deleteButton";
     dButton.value = contactId;
     dButton.className = "iconButton";
-    dButton.onclick = function () { doDelete(contactId) };
+    //dButton.onclick = function () { doDelete(jsonObject.results[i].contactId) };
+    dButton.onclick = function () { deleteCheck(jsonObject.results[i].contactId) };
     dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span >';
     deleteCell.appendChild(dButton);
+}
+
+function editWindow(table, jsonObject, i) {
+
+
+
+    table.innerHTML = "";
+    var contactWindowDiv = document.getElementById('contactWindow');
+
+    var div = document.getElementById('updateForm');
+
+    document.getElementById('updateForm').innerHTML = '<label for="firstName" class="form-label">First Name</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="firstName">';
+    document.getElementById('firstName').placeholder = jsonObject.results[i].firstName;
+
+    document.getElementById('updateForm').innerHTML += '<label for="lastName" class="form-label">Last Name:</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="lastName">';
+    document.getElementById('lastName').placeholder = jsonObject.results[i].lastName;
+
+    document.getElementById('updateForm').innerHTML += '<label for="phoneNumber" class="form-label">Phone Number</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="tel" class="form-control" id="phoneNumber" placeholder="phoneNumber">';
+    document.getElementById('phoneNumber').innerHTML = jsonObject.results[i].phoneNumber;
+
+
+    /*
+    let newLastName = document.createElement("lastName");
+    newLastName.value = jsonObject.results[i].lasttname;
+
+    let newPhoneNumber = document.createElement("phoneNumber");
+    newPhoneNumber.value = jsonObject.results[i].lasttname;
+
+    let newEmail = document.createElement("email").value;
+    newEmail.value = jsonObject.results[i].email;
+
+    let newStreetAddress = document.createElement("streetAddress");
+    newStreetAddress.value = jsonObject.results[i].streetAddress;
+
+    let newCity = document.createElement("city");
+    newCity.value = jsonObject.results[i].city;
+
+    let newState = document.createElement("state");
+    newState.value = jsonObject.results[i].state;
+
+    let newZip = document.createElement("zip");
+    newZip.value = jsonObject.results[i].zip;
+
+
+    let newFirstName = document.getElementById("firstName").value;
+    let newLastName = document.getElementById("lastName").value;
+    let newPhoneNumber = document.getElementById("phoneNumber").value;
+    let newEmail = document.getElementById("email").value;
+    let newStreetAddress = document.getElementById("streetAddress").value;
+    let newCity = document.getElementById("city").value;
+    let newState = document.getElementById("state").value;
+    let newZip = document.getElementById("zip").value;
+    */
+}
+
+function deleteCheck(contactId) {
+
+    if (confirm("Are you sure you want to delete this contact?") == true) {
+        doDelete(contactId);
+    }
+}
+
+function refreshContacts() {
+
+    document.getElementById("searchText").value = "";
+    searchContacts();
 }
