@@ -2,7 +2,7 @@
 
 	$inData = getRequestInfo();
 
-	$ID = $inData["ID"];
+	$ID = $inData["contactId"];
 	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Group30", "WeLoveCOP4331", "COP4331");
@@ -12,18 +12,35 @@
 	}
 	else
 	{
-		// Sets the query for deleting a contact based on the contact id and user id
-		$query = 'DELETE FROM Contacts WHERE ID = ? AND UserID = ?;';
+		// Initial query to check if the user exist.
+		$query = 'SELECT * FROM Contacts WHERE ID = ? AND UserID = ?;';
 
-		// The deleting magic happens
 		$stmt = $conn->prepare($query);
 		$stmt->bind_param("ss", $ID, $userId);
 		$stmt->execute();
 
+		$result = $stmt->get_result();
+
+		// If statement checks if the contact exists.
+		if (mysqli_num_rows($result) > 0)
+		{
+			// New query to delete desired contact.
+			$newQuery = 'DELETE FROM Contacts WHERE ID = ? AND UserID = ?;';
+
+			$stmt = $conn->prepare($newQuery);
+			$stmt->bind_param("ss", $ID, $userId);
+			$stmt->execute();
+
+			returnWithInfo($ID, "Successfully deleted.");
+		}
+		// Reaches here then contact does not exist.
+		else
+		{
+			returnWithError(-1, "Does not exist");
+		}
+
 		$stmt->close();
 		$conn->close();
-
-		returnWithInfo($ID, "Successfully deleted.");
 	}
 
 	function getRequestInfo()
