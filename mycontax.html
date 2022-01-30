@@ -55,11 +55,19 @@
                     </form>
                     <button class="btn btn-outline-success" type="submit" id="searchButton" onclick="searchContacts();">Search</button>
                     <button class="btn btn-outline-success" type="button" id="refreshButton" onclick="refreshContacts();">Refresh</button>
+                    <button class="btn btn-outline-success" type="button" id="addButton" onclick="addWindow();">Add Contact</button>
                     <div id="contactWindow" class="row justify-content-center align-items-center tp-20">
                         <span id="searchContactsResult"></span>
                         <span id="deleteContactResult"></span>
+                        <span id="updateResult"></span>
+                        <span id="addContactResult"></span>
                         <table id="contactTable"></table>
-                        <form id="updateForm"></form>
+                        <div id="updateWindow">
+                            <form id="updateForm"></form>
+                        </div>
+                        <div id="addWindow">
+                            <form id="addForm"></form>
+                        </div>
                     </div>
                 </div>
             </div>

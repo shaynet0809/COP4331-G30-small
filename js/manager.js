@@ -24,13 +24,13 @@ function addContact() {
     let newFirstName = document.getElementById("firstName").value;
     let newLastName = document.getElementById("lastName").value;
     let newPhoneNumber = document.getElementById("phoneNumber").value;
-    let newEmail = document.getElementById("email").value;
+    let newEmail = document.getElementById("emailAddress").value;
     let newStreetAddress = document.getElementById("streetAddress").value;
     let newCity = document.getElementById("city").value;
     let newState = document.getElementById("state").value;
     let newZip = document.getElementById("zip").value;
 
-    document.getElementById("contactAddResult").innerHTML = "";
+    document.getElementById("addContactResult").innerHTML = "";
 
     // Check for full name (required)
 
@@ -75,19 +75,19 @@ function addContact() {
     else {
 
         if (!fullName) {
-            document.getElementById("contactAddResult").innerHTML += nameError + '<br />';
+            document.getElementById("addContactResult").innerHTML += nameError + '<br />';
         }
 
         if (invalidPhone) {
-            document.getElementById("contactAddResult").innerHTML += phoneError + '<br />';
+            document.getElementById("addContactResult").innerHTML += phoneError + '<br />';
         }
 
         if (partialAddress) {
-            document.getElementById("contactAddResult").innerHTML += addressError + '<br />';
+            document.getElementById("addContactResult").innerHTML += addressError + '<br />';
         }
 
         if (!minimumContact) {
-            document.getElementById("contactAddResult").innerHTML += contactMethodError + '<br />';
+            document.getElementById("addContactResult").innerHTML += contactMethodError + '<br />';
         }
 
     }
@@ -118,14 +118,14 @@ function addContact() {
 
 
                     if (returnId == 0) {
-                        document.getElementById("contactAddResult").innerHTML = "Returned 0";
+                        document.getElementById("addContactResult").innerHTML = "Returned 0";
                     }
                     else if (returnId == -1) {
-                        document.getElementById("contactAddResult").innerHTML = "Contact added successfully.";
+                        document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
                         document.getElementById("addForm").reset();
                     }
                     else {
-                        document.getElementById("contactAddResult").innerHTML = "Returned other error:" + returnId;
+                        document.getElementById("addContactResult").innerHTML = "Returned other error:" + returnId;
                     }
                 }
             };
@@ -169,7 +169,7 @@ function doDelete(contactId) {
                     document.getElementById("deleteContactResult").innerHTML = "Contact has been deleted.";
                     location.reload();
                 }
-                else if (returnId == -1) {
+                else if (returnId == 0) {
                     document.getElementById("deleteContactResult").innerHTML = "Requested contact not found. Deletion canceled.";
                 }
                 else {
@@ -184,42 +184,141 @@ function doDelete(contactId) {
     }
 }
 
-function doUpdate() {
+function doUpdate(contactId) {
 
     // TODO holding place
     // sends updated info to the API similar to  creation but with conatct id
     // first and last name required, do not accept if either is blank
     // prepopulate with current data, that way the user only changes what they need
 
-    let updatedFirstName = document.getElementById("firstName").value;
-    let updatedLastName = document.getElementById("lastName").value;
-    let updatedPhoneNumber = document.getElementById("phoneNumber").value;
-    let updatedEmail = document.getElementById("email").value;
+    // return value from API
+    // -1 success, 0 error
+    let returnId = -2;
 
-    // contactId and userId should be sent/chosen by search function
+    // control variables
+    let fullName = false;
+    let invalidPhone = false;
+    let partialAddress = false;
+    let completeAddress = false;
+    let minimumContact = false;
+    let validContact = false;
 
-    document.getElementById("contactAddResult").innerHTML = "";
+    // error messages
+    let nameError = "First and last name required.";
+    let phoneError = "Invalid phone number. Correct format: 555-555-5555";
+    let addressError = "Partial address not allowed.";
+    let contactMethodError = "At least one form of contact is required.";
 
-    let tmp = { contactId: contactId, firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, email: newEmail, userId, userId };
-    let jsonPayload = JSON.stringify(tmp);
+    // form variables
+    let newFirstName = document.getElementById("firstName").value;
+    let newLastName = document.getElementById("lastName").value;
+    let newPhoneNumber = document.getElementById("phoneNumber").value;
+    let newEmail = document.getElementById("emailAddress").value;
+    let newStreetAddress = document.getElementById("streetAddress").value;
+    let newCity = document.getElementById("city").value;
+    let newState = document.getElementById("state").value;
+    let newZip = document.getElementById("zip").value;
 
-    let url = urlBase + '/UpdateContact.' + extension;
+    document.getElementById("updateResult").innerHTML = "";
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    // Check for full name (required)
 
-
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactUpdateResult").innerHTML = "Contact has been updated.";
-            }
-        };
-        xhr.send(jsonPayload);
+    if ((newFirstName != "") && (newLastName != "")) {
+        fullName = true;
     }
-    catch (err) {
-        document.getElementById("updateResult").innerHTML = err.message;
+
+    // Validate correct format of phone number
+
+    if (newPhoneNumber != "") {
+
+        var reg = new RegExp("[0-9]{3}-[0-9]{3}-[0-9]{4}");
+
+        if (!reg.test(newPhoneNumber)) {
+            invalidPhone = true;
+        }
+    }
+
+    // Check if any address fields are populated
+    // This could mean a partial or full address. 
+    // Partial addresses are not acceptable.
+
+    if ((newStreetAddress != "") || (newCity != "") || (newState != "") || (newZip != "")) {
+
+        if ((newStreetAddress == "") || (newCity == "") || (newState == "") || (newZip == "")) {
+            partialAddress = true;
+        }
+        else {
+            completeAddress = true;
+        }
+    }
+
+    // Check that at least one form of contact is complete
+    if ((newPhoneNumber != "") || (newEmail != "") || (completeAddress)) {
+        minimumContact = true;
+    }
+
+    // Check if form is valid overall
+    if ((fullName) && (!invalidPhone) && (!partialAddress) && (minimumContact)) {
+        validContact = true;
+    }
+    else {
+
+        if (!fullName) {
+            document.getElementById("updateResult").innerHTML += nameError + '<br />';
+        }
+
+        if (invalidPhone) {
+            document.getElementById("updateResult").innerHTML += phoneError + '<br />';
+        }
+
+        if (partialAddress) {
+            document.getElementById("updateResult").innerHTML += addressError + '<br />';
+        }
+
+        if (!minimumContact) {
+            document.getElementById("updateResult").innerHTML += contactMethodError + '<br />';
+        }
+
+    }
+
+    // If form is valid, send contact to API
+    if (validContact) {
+
+        let tmp = {
+            firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, emailAddress: newEmail,
+            streetAddress: newStreetAddress, city: newCity, state: newState, zip: newZip, userId: userId, contactId: contactId
+        };
+
+        let jsonPayload = JSON.stringify(tmp);
+
+        let url = urlBase + '/UpdateContact.' + extension;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+        try {
+            xhr.onreadystatechange = function () {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    let jsonObject = JSON.parse(xhr.responseText);
+                    returnId = jsonObject.id;
+
+                    if (returnId == -1) {
+                        document.getElementById("updateResult").innerHTML = "Contact has been updated.";
+                    }
+                    else {
+                        document.getElementById("updateResult").innerHTML = "Update failed. Error: " + returnId;
+                    }
+                }
+            };
+
+            xhr.send(jsonPayload);
+        }
+        catch (err) {
+            document.getElementById("updateResult").innerHTML = err.message;
+        }
     }
 }
 
@@ -284,16 +383,20 @@ function searchContacts() {
 
 // Intended to use with update
 // Is supposed to populate the state field with the current contact's value
-function setSelectedIndex(s, v) {
+function getSelectedIndex(s, v) {
+
+    var targetIndex = 0;
 
     for (var i = 0; i < s.options.length; i++) {
 
         if (s.options[i].text == v) {
 
-            s.options[i].selected = true;
-
-            return;
+            //s.options[i].selected = true;
+            targetIndex = i;
+            break;
         }
+
+        return targetIndex;
     }
 }
 
@@ -349,10 +452,10 @@ function setRow(table, jsonObject, row, i, contactId) {
     firstNameCell.innerHTML = jsonObject.results[i].firstName;
 
     var emailCell = row.insertCell(2);
-    emailCell.innerHTML = jsonObject.results[i].emailAddress;
+    emailCell.innerHTML = jsonObject.results[i].phoneNumber;
 
     var phoneCell = row.insertCell(3);
-    phoneCell.innerHTML = jsonObject.results[i].phoneNumber;
+    phoneCell.innerHTML = jsonObject.results[i].emailAddress;
 
     var streetAddressCell = row.insertCell(4);
     streetAddressCell.innerHTML = jsonObject.results[i].streetAddress;
@@ -371,7 +474,6 @@ function setRow(table, jsonObject, row, i, contactId) {
     eButton.name = "editButton";
     eButton.value = contactId;
     eButton.className = "iconButton";
-    //eButton.onclick = function () { window.location.href = "update-contact.html"; };
     eButton.onclick = function () { editWindow(table, jsonObject, i) };
     eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
     editCell.appendChild(eButton);
@@ -383,7 +485,6 @@ function setRow(table, jsonObject, row, i, contactId) {
     dButton.name = "deleteButton";
     dButton.value = contactId;
     dButton.className = "iconButton";
-    //dButton.onclick = function () { doDelete(jsonObject.results[i].contactId) };
     dButton.onclick = function () { deleteCheck(jsonObject.results[i].contactId) };
     dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-trash-alt"></i></span ></span >';
     deleteCell.appendChild(dButton);
@@ -394,56 +495,205 @@ function editWindow(table, jsonObject, i) {
 
 
     table.innerHTML = "";
-    var contactWindowDiv = document.getElementById('contactWindow');
+    var contactWindowDiv = document.getElementById('updateWindow');
 
     var div = document.getElementById('updateForm');
 
-    document.getElementById('updateForm').innerHTML = '<label for="firstName" class="form-label">First Name</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="hidden" class="form-control" id="contactId">';
+    document.getElementById('contactId').defaultValue = jsonObject.results[i].contactId;
+
+    document.getElementById('updateForm').innerHTML += '<label for="firstName" class="form-label">First Name:</label>';
     document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="firstName">';
-    document.getElementById('firstName').placeholder = jsonObject.results[i].firstName;
+    document.getElementById('firstName').defaultValue = jsonObject.results[i].firstName;
 
     document.getElementById('updateForm').innerHTML += '<label for="lastName" class="form-label">Last Name:</label>';
     document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="lastName">';
-    document.getElementById('lastName').placeholder = jsonObject.results[i].lastName;
+    document.getElementById('lastName').defaultValue = jsonObject.results[i].lastName;
 
-    document.getElementById('updateForm').innerHTML += '<label for="phoneNumber" class="form-label">Phone Number</label>';
+    document.getElementById('updateForm').innerHTML += '<label for="phoneNumber" class="form-label">Phone Number:</label>';
     document.getElementById('updateForm').innerHTML += '<input type="tel" class="form-control" id="phoneNumber" placeholder="phoneNumber">';
-    document.getElementById('phoneNumber').innerHTML = jsonObject.results[i].phoneNumber;
+    document.getElementById('phoneNumber').defaultValue = jsonObject.results[i].phoneNumber;
 
+    document.getElementById('updateForm').innerHTML += '<label for="emailAddress" class="form-label">Email Address:</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="email" class="form-control" id="emailAddress" placeholder="emailAddress">';
+    document.getElementById('emailAddress').defaultValue = jsonObject.results[i].emailAddress;
 
-    /*
-    let newLastName = document.createElement("lastName");
-    newLastName.value = jsonObject.results[i].lasttname;
+    document.getElementById('updateForm').innerHTML += '<label for="streetAddress" class="form-label">Street Address:</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="streetAddress" placeholder="streetAddress">';
+    document.getElementById('streetAddress').defaultValue = jsonObject.results[i].streetAddress;
 
-    let newPhoneNumber = document.createElement("phoneNumber");
-    newPhoneNumber.value = jsonObject.results[i].lasttname;
+    document.getElementById('updateForm').innerHTML += '<label for="city" class="form-label">City:</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="city" placeholder="city">';
+    document.getElementById('city').defaultValue = jsonObject.results[i].city;
 
-    let newEmail = document.createElement("email").value;
-    newEmail.value = jsonObject.results[i].email;
+    document.getElementById('updateForm').innerHTML += '<label for="state" class="form-label">State:</label>';
+    document.getElementById('updateForm').innerHTML += '<select class="form-select" id="state" required>';
+    document.getElementById('state').innerHTML += '<option value=""></option>';
+    document.getElementById('state').innerHTML += '<option>Alabama</option>'
+    document.getElementById('state').innerHTML += '<option>Alaska</option>';
+    document.getElementById('state').innerHTML += '<option>Arkansas</option>';
+    document.getElementById('state').innerHTML += '<option>California</option>';
+    document.getElementById('state').innerHTML += '<option>Colorado</option>';
+    document.getElementById('state').innerHTML += '<option>Connecticut</option>';
+    document.getElementById('state').innerHTML += '<option>Delaware</option>';
+    document.getElementById('state').innerHTML += '<option>Florida</option>';
+    document.getElementById('state').innerHTML += '<option>Georgia</option>';
+    document.getElementById('state').innerHTML += '<option>Hawaii</option>';
+    document.getElementById('state').innerHTML += '<option>Idaho</option>';
+    document.getElementById('state').innerHTML += '<option>Illinois</option>';
+    document.getElementById('state').innerHTML += '<option>Indiana</option>';
+    document.getElementById('state').innerHTML += '<option>Iowa</option>';
+    document.getElementById('state').innerHTML += '<option>Kansas</option>';
+    document.getElementById('state').innerHTML += '<option>Kentucky</option>';
+    document.getElementById('state').innerHTML += '<option>Louisiana</option>';
+    document.getElementById('state').innerHTML += '<option>Maine</option>';
+    document.getElementById('state').innerHTML += '<option>Maryland</option>';
+    document.getElementById('state').innerHTML += '<option>Massachusetts</option>';
+    document.getElementById('state').innerHTML += '<option>Michigan</option>';
+    document.getElementById('state').innerHTML += '<option>Minnesota</option>';
+    document.getElementById('state').innerHTML += '<option>Mississippi</option>';
+    document.getElementById('state').innerHTML += '<option>Missouri</option>';
+    document.getElementById('state').innerHTML += '<option>Montana</option>';
+    document.getElementById('state').innerHTML += '<option>Nebraska</option>';
+    document.getElementById('state').innerHTML += '<option>Nevada</option>';
+    document.getElementById('state').innerHTML += '<option>New Hampshire</option>';
+    document.getElementById('state').innerHTML += '<option>New Jersey</option>';
+    document.getElementById('state').innerHTML += '<option>New Mexico</option>';
+    document.getElementById('state').innerHTML += '<option>New York</option>';
+    document.getElementById('state').innerHTML += '<option>North Carolina</option>';
+    document.getElementById('state').innerHTML += '<option>North Dakota</option>';
+    document.getElementById('state').innerHTML += '<option>Ohio</option>';
+    document.getElementById('state').innerHTML += '<option>Oklahoma</option>';
+    document.getElementById('state').innerHTML += '<option>Oregon</option>';
+    document.getElementById('state').innerHTML += '<option>Pennsylvania</option>';
+    document.getElementById('state').innerHTML += '<option>Rhode Island</option>';
+    document.getElementById('state').innerHTML += '<option>South Carolina</option>';
+    document.getElementById('state').innerHTML += '<option>South Dakota</option>';
+    document.getElementById('state').innerHTML += '<option>Tennessee</option>';
+    document.getElementById('state').innerHTML += '<option>Texas</option>';
+    document.getElementById('state').innerHTML += '<option>Utah</option>';
+    document.getElementById('state').innerHTML += '<option>Vermont</option>';
+    document.getElementById('state').innerHTML += '<option>Virginia</option>';
+    document.getElementById('state').innerHTML += '<option>Washington</option>';
+    document.getElementById('state').innerHTML += '<option>West Virginia</option>';
+    document.getElementById('state').innerHTML += '<option>Wisconsin</option>';
+    document.getElementById('state').innerHTML += '<option>Wyoming</option>';
 
-    let newStreetAddress = document.createElement("streetAddress");
-    newStreetAddress.value = jsonObject.results[i].streetAddress;
+    var selected = document.createElement("option");
+    selected.text = jsonObject.results[i].state;
+    document.getElementById('state').options.add(selected, 0);
 
-    let newCity = document.createElement("city");
-    newCity.value = jsonObject.results[i].city;
+    document.getElementById('updateForm').innerHTML += '</select >';
 
-    let newState = document.createElement("state");
-    newState.value = jsonObject.results[i].state;
+    document.getElementById('updateForm').innerHTML += '<label for="zip" class="form-label">Zip:</label>';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="zip" placeholder="zip">';
+    document.getElementById('zip').defaultValue = jsonObject.results[i].zip;
 
-    let newZip = document.createElement("zip");
-    newZip.value = jsonObject.results[i].zip;
+    var uButton = document.createElement("button");
+    uButton.name = "updateButton";
+    uButton.onclick = function () { doUpdate(jsonObject.results[i].contactId) };
+    uButton.innerHTML = "Update Contact";
+    document.getElementById("updateWindow").appendChild(uButton);
+  
 
-
-    let newFirstName = document.getElementById("firstName").value;
-    let newLastName = document.getElementById("lastName").value;
-    let newPhoneNumber = document.getElementById("phoneNumber").value;
-    let newEmail = document.getElementById("email").value;
-    let newStreetAddress = document.getElementById("streetAddress").value;
-    let newCity = document.getElementById("city").value;
-    let newState = document.getElementById("state").value;
-    let newZip = document.getElementById("zip").value;
-    */
 }
+
+function addWindow() {
+
+
+
+    document.getElementById("contactTable").innerHTML = "";
+
+    var contactWindowDiv = document.getElementById('addWindow');
+
+    var div = document.getElementById('addForm');
+
+    document.getElementById('addForm').innerHTML += '<label for="firstName" class="form-label">First Name:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="firstName" placeholder="First Name *">';
+
+    document.getElementById('addForm').innerHTML += '<label for="lastName" class="form-label">Last Name:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="lastName" placeholder="Last Name *">';
+
+    document.getElementById('addForm').innerHTML += '<label for="phoneNumber" class="form-label">Phone Number:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number">';
+
+    document.getElementById('addForm').innerHTML += '<label for="emailAddress" class="form-label">Email Address:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="email" class="form-control" id="emailAddress" placeholder="Email">';
+
+    document.getElementById('addForm').innerHTML += '<label for="streetAddress" class="form-label">Street Address:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="streetAddress" placeholder="Street Address">';
+
+    document.getElementById('addForm').innerHTML += '<label for="city" class="form-label">City:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="city" placeholder="City">';
+
+    document.getElementById('addForm').innerHTML += '<label for="state" class="form-label">State:</label>';
+    document.getElementById('addForm').innerHTML += '<select class="form-select" id="state" required>';
+    document.getElementById('state').innerHTML += '<option selected disabled value="">Choose...</option>';
+    document.getElementById('state').innerHTML += '<option>Alabama</option>'
+    document.getElementById('state').innerHTML += '<option>Alaska</option>';
+    document.getElementById('state').innerHTML += '<option>Arkansas</option>';
+    document.getElementById('state').innerHTML += '<option>California</option>';
+    document.getElementById('state').innerHTML += '<option>Colorado</option>';
+    document.getElementById('state').innerHTML += '<option>Connecticut</option>';
+    document.getElementById('state').innerHTML += '<option>Delaware</option>';
+    document.getElementById('state').innerHTML += '<option>Florida</option>';
+    document.getElementById('state').innerHTML += '<option>Georgia</option>';
+    document.getElementById('state').innerHTML += '<option>Hawaii</option>';
+    document.getElementById('state').innerHTML += '<option>Idaho</option>';
+    document.getElementById('state').innerHTML += '<option>Illinois</option>';
+    document.getElementById('state').innerHTML += '<option>Indiana</option>';
+    document.getElementById('state').innerHTML += '<option>Iowa</option>';
+    document.getElementById('state').innerHTML += '<option>Kansas</option>';
+    document.getElementById('state').innerHTML += '<option>Kentucky</option>';
+    document.getElementById('state').innerHTML += '<option>Louisiana</option>';
+    document.getElementById('state').innerHTML += '<option>Maine</option>';
+    document.getElementById('state').innerHTML += '<option>Maryland</option>';
+    document.getElementById('state').innerHTML += '<option>Massachusetts</option>';
+    document.getElementById('state').innerHTML += '<option>Michigan</option>';
+    document.getElementById('state').innerHTML += '<option>Minnesota</option>';
+    document.getElementById('state').innerHTML += '<option>Mississippi</option>';
+    document.getElementById('state').innerHTML += '<option>Missouri</option>';
+    document.getElementById('state').innerHTML += '<option>Montana</option>';
+    document.getElementById('state').innerHTML += '<option>Nebraska</option>';
+    document.getElementById('state').innerHTML += '<option>Nevada</option>';
+    document.getElementById('state').innerHTML += '<option>New Hampshire</option>';
+    document.getElementById('state').innerHTML += '<option>New Jersey</option>';
+    document.getElementById('state').innerHTML += '<option>New Mexico</option>';
+    document.getElementById('state').innerHTML += '<option>New York</option>';
+    document.getElementById('state').innerHTML += '<option>North Carolina</option>';
+    document.getElementById('state').innerHTML += '<option>North Dakota</option>';
+    document.getElementById('state').innerHTML += '<option>Ohio</option>';
+    document.getElementById('state').innerHTML += '<option>Oklahoma</option>';
+    document.getElementById('state').innerHTML += '<option>Oregon</option>';
+    document.getElementById('state').innerHTML += '<option>Pennsylvania</option>';
+    document.getElementById('state').innerHTML += '<option>Rhode Island</option>';
+    document.getElementById('state').innerHTML += '<option>South Carolina</option>';
+    document.getElementById('state').innerHTML += '<option>South Dakota</option>';
+    document.getElementById('state').innerHTML += '<option>Tennessee</option>';
+    document.getElementById('state').innerHTML += '<option>Texas</option>';
+    document.getElementById('state').innerHTML += '<option>Utah</option>';
+    document.getElementById('state').innerHTML += '<option>Vermont</option>';
+    document.getElementById('state').innerHTML += '<option>Virginia</option>';
+    document.getElementById('state').innerHTML += '<option>Washington</option>';
+    document.getElementById('state').innerHTML += '<option>West Virginia</option>';
+    document.getElementById('state').innerHTML += '<option>Wisconsin</option>';
+    document.getElementById('state').innerHTML += '<option>Wyoming</option>';
+
+    document.getElementById('addForm').innerHTML += '</select >';
+
+    document.getElementById('addForm').innerHTML += '<label for="zip" class="form-label">Zip:</label>';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control" id="zip" placeholder="Zip">';
+
+    var uButton = document.createElement("button");
+    uButton.name = "addButton";
+    uButton.onclick = function () { addContact() };
+    uButton.innerHTML = "Add Contact";
+    document.getElementById("addWindow").appendChild(uButton);
+
+
+}
+
+
 
 function deleteCheck(contactId) {
 
@@ -455,5 +705,11 @@ function deleteCheck(contactId) {
 function refreshContacts() {
 
     document.getElementById("searchText").value = "";
+    document.getElementById("updateWindow").innerHTML = "";
+    document.getElementById("updateResult").innerHTML = "";
+    document.getElementById("addWindow").innerHTML = "";
+    document.getElementById("addContactResult").innerHTML = "";
+    document.getElementById("searchContactsResult").innerHTML = "";
+    document.getElementById("deleteContactResult").innerHTML = "";
     searchContacts();
 }
