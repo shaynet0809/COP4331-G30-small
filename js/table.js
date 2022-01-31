@@ -30,33 +30,33 @@ function setTable(table) {
     return row;
 }
 
-function setRow(table, jsonObject, row, i, contactId) {
+function setRow(table, contactList, row, i, contactId) {
 
     row = table.insertRow(1);
 
     var lastNameCell = row.insertCell(0);
-    lastNameCell.innerHTML = jsonObject.results[i].lastName;
+    lastNameCell.innerHTML = contactList[i].lastName;
 
     var firstNameCell = row.insertCell(1);
-    firstNameCell.innerHTML = jsonObject.results[i].firstName;
+    firstNameCell.innerHTML = contactList[i].firstName;
 
     var phoneCell = row.insertCell(2);
-    phoneCell.innerHTML = jsonObject.results[i].phoneNumber;
+    phoneCell.innerHTML = contactList[i].phoneNumber;
 
     var emailCell = row.insertCell(3);
-    emailCell.innerHTML = jsonObject.results[i].emailAddress;
+    emailCell.innerHTML = contactList[i].emailAddress;
 
     var streetAddressCell = row.insertCell(4);
-    streetAddressCell.innerHTML = jsonObject.results[i].streetAddress;
+    streetAddressCell.innerHTML = contactList[i].streetAddress;
 
     var cityCell = row.insertCell(5);
-    cityCell.innerHTML = jsonObject.results[i].city;
+    cityCell.innerHTML = contactList[i].city;
 
     var stateCell = row.insertCell(6);
-    stateCell.innerHTML = jsonObject.results[i].state;
+    stateCell.innerHTML = contactList[i].state;
 
     var zipCell = row.insertCell(7);
-    zipCell.innerHTML = jsonObject.results[i].zip;
+    zipCell.innerHTML = contactList[i].zip;
 
     var editCell = row.insertCell(8)
     let eButton = document.createElement("button");
@@ -78,7 +78,7 @@ function setRow(table, jsonObject, row, i, contactId) {
     dButton.style.background = "transparent";
     dButton.value = contactId;
     dButton.className = "iconButton";
-    dButton.onclick = function () { deleteCheck(jsonObject.results[i].contactId) };
+    dButton.onclick = function () { deleteCheck(contactList[i].contactId) };
     dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen; border: none" ><i class="fas fa-trash-alt"></i></span ></span >';
     deleteCell.appendChild(dButton);
 }

@@ -148,10 +148,6 @@ function deleteCheck(contactId) {
 
 function doDelete(contactId) {
 
-    // contactId and userId should be provided by search function
-
-    // let contactId = document.getElementById("contactId");
-    // let userId = documnet.getElementById("userId");
 
     let returnId = -2;
 
@@ -194,13 +190,6 @@ function doDelete(contactId) {
 
 function doUpdate(contactId) {
 
-    // TODO holding place
-    // sends updated info to the API similar to  creation but with conatct id
-    // first and last name required, do not accept if either is blank
-    // prepopulate with current data, that way the user only changes what they need
-
-    // return value from API
-    // -1 success, 0 error
     let returnId = -2;
 
     // control variables
@@ -392,13 +381,16 @@ function searchContacts() {
                     var row = setTable();
 
                     contactList = jsonObject.results;
+
                     contactList = sortContacts(contactList);
 
-                    console.log(contactList);
 
-                    for (let i = 0; i < jsonObject.results.length; i++) {
+                    contactList = reverseContacts(contactList); 
 
-                        setRow(table, jsonObject, row, i, jsonObject.results[i].contactId);
+
+                    for (let i = 0; i < contactList.length; i++) {
+
+                        setRow(table, contactList, row, i, contactList[i].contactId);
                     }
                 }else
                 {
@@ -420,6 +412,7 @@ function searchContacts() {
 
 function sortContacts(contactList) {
 
+
     contactList.sort(function (a, b) {
         var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
         var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
@@ -439,12 +432,39 @@ function sortContacts(contactList) {
 }
 
 
-function reverseContacts(jsonObject) {
+function reverseContacts(contactList) {
 
-    contactList = jsonObject.results;
-    contactList.sort((firstContact, secondContact) => firstContact.lastName - secondContact.lastName);
+    contactList.sort(function (a, b) {
+        var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+        if (nameA > nameB) {
+            return -1;
+        }
+        if (nameA < nameB) {
+            return 1;
+        }
 
-    console.log(contactList);
+        // names must be equal
+        return 0;
+    });
 
     return contactList;
+}
+
+
+function sortSwitch(contactList) {
+
+    var table = document.getElementById("contactTable");
+
+    var contactId = -1;
+
+    var row = setTable(contactList);
+
+    contactList = reverseContacts(contactList);
+
+
+    for (let i = 0; i < contactList.length; i++) {
+
+        setRow(table, contactList, row, i, contactList[i].contactId);
+    }
 }
