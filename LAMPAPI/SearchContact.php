@@ -11,9 +11,8 @@
 	}
 	else
 	{
-		// This does allow for search right now. Need to modify to display not
-		// just name but last name, email, etc.
-
+		// Allows to search for firstname and lastname of contact with the
+		// appropiate UserID.
 		$query = "SELECT firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,ID,UserID";
 		$query .= " FROM Contacts WHERE ((firstName like ?) or (lastName like ?)) and UserID=?";
 
