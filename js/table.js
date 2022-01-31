@@ -1,4 +1,4 @@
-function setTable(table) {
+function setTable(contactList) {
 
     table = document.getElementById("contactTable");
 
@@ -7,6 +7,17 @@ function setTable(table) {
     var row = table.insertRow(-1);
 
     var headers = new Array();
+
+
+
+    /*
+    var headerCell = document.createElement("TH");
+    headerCell.innerHTML = '<button class="btn btn-outline-success" type="button"  value= "contactListVar" id="sortLastButton" style="border: none" onclick="sortSwitch();">Last Name</button>';
+    //headerCell.appendChild(sortLastButton);
+    row.appendChild(headerCell);
+    */
+
+
     headers.push("Last Name");
     headers.push("First Name");
     headers.push("Phone");

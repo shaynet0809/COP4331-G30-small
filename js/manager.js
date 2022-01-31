@@ -382,10 +382,14 @@ function searchContacts() {
 
                     contactList = jsonObject.results;
 
+                    // sorts into alphabetical order
                     contactList = sortContacts(contactList);
 
+                    // reverses order because table is built from the bottom up
+                    contactList = reverseContacts(contactList);
 
-                    contactList = reverseContacts(contactList); 
+                    //document.getElementById('listForm').innerHTML += '<input type="hidden" class="form-control" id="contactListVar">';
+                    //document.getElementById('contactListVar').defaultValue = contactList;
 
 
                     for (let i = 0; i < contactList.length; i++) {
@@ -434,6 +438,8 @@ function sortContacts(contactList) {
 
 function reverseContacts(contactList) {
 
+    //var contactList = document.getElementById("contactListVar");
+
     contactList.sort(function (a, b) {
         var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
         var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
@@ -452,19 +458,25 @@ function reverseContacts(contactList) {
 }
 
 
-function sortSwitch(contactList) {
+function sortSwitch() {
+
+    var contactList = document.getElementById("contactListVar");
 
     var table = document.getElementById("contactTable");
 
     var contactId = -1;
 
-    var row = setTable(contactList);
+    var row = setTable();
 
+    console.log(contactList);
+    
     contactList = reverseContacts(contactList);
 
+    console.log(contactList);
 
     for (let i = 0; i < contactList.length; i++) {
 
         setRow(table, contactList, row, i, contactList[i].contactId);
     }
+
 }
