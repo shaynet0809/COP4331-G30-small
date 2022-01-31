@@ -391,6 +391,10 @@ function searchContacts() {
 
                     var row = setTable();
 
+                    contactList = jsonObject.results;
+                    contactList = sortContacts(contactList);
+
+                    console.log(contactList);
 
                     for (let i = 0; i < jsonObject.results.length; i++) {
 
@@ -414,5 +418,33 @@ function searchContacts() {
 }
 
 
+function sortContacts(contactList) {
+
+    contactList.sort(function (a, b) {
+        var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+
+        // names must be equal
+        return 0;
+    });
+
+    return contactList;
+
+}
 
 
+function reverseContacts(jsonObject) {
+
+    contactList = jsonObject.results;
+    contactList.sort((firstContact, secondContact) => firstContact.lastName - secondContact.lastName);
+
+    console.log(contactList);
+
+    return contactList;
+}

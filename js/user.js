@@ -1,6 +1,6 @@
 /** COP 4331-Spr22 Small Project Group 30 */
 
-const urlBase = 'http://justkeeptesting.xyz/LAMPAPI';
+const urlBase = 'http://mycontax.digital/LAMPAPI';
 const extension = 'php';
 
 
