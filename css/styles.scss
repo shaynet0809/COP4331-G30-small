@@ -1,0 +1,39 @@
+$color-primary: #0b132b;
+$color-secondary: #1c2541;
+$color-warning: #3A506B;
+$color-info: #5BC0BE;
+$color-light: #FFFFFF;
+$color-dark: #000;
+
+body {
+    background-color:#0B132B;
+}
+
+.navbar{
+    background-color: #1C2541;
+    .navbar-brand {
+        color: $color-info;
+    }
+}
+
+.custom-toggler.navbar-toggler {
+    border-color:#FFFFFF;
+    background-color: #FFFFFF;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url(
+"https://www.clipartmax.com/png/small/36-365828_navbar-toggle-icon-menu-hamburger-png-white.png");
+}
+
+#loginDiv {
+    .btn {
+        background-color: $color-primary;
+        color: $color-info;
+    }
+    form {
+        label {
+            color: $color-light;
+        }
+    }
+}

@@ -1,208 +1,30 @@
-/*  COP 4331-Spr22 Small Project Group 30 */
-
-
-/* This has not been customized. These values will be updated after functionality. */
-
-
 body {
-    background-color: #707070;
+  background-color: #0B132B;
 }
 
-input {
-    box-sizing: border-box;
-    font-size: 20px;
-    padding: 1rem;
-    display: block;
-    margin: 2rem auto;
+.navbar {
+  background-color: #1C2541;
 }
 
-input:invalid:focus {
-    background-color: lightcoral;
+.navbar .navbar-brand {
+  color: #5BC0BE;
 }
 
-#title {
-    font-size: 30px;
-    width: 100%;
-    margin: 2% 5%;
-    margin-left: 15%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+.custom-toggler.navbar-toggler {
+  border-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
-#loginDiv {
-    font-size: 20px;
-    width: 70%;
-    margin: auto;
-    padding: 25px;
-    background-color: #b2b2b2;
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("https://www.clipartmax.com/png/small/36-365828_navbar-toggle-icon-menu-hamburger-png-white.png");
 }
 
-#loggedInDiv {
-    font-size: 20px;
-    width: 70%;
-    margin: auto;
-    padding: 25px;
-    background-color: #b2b2b2;
+#loginDiv .btn {
+  background-color: #0b132b;
+  color: #5BC0BE;
 }
 
-#accessUIDiv {
-    font-size: 20px;
-    width: 70%;
-    margin: auto;
-    padding: 25px;
-    background-color: #b2b2b2;
-
+#loginDiv form label {
+  color: #FFFFFF;
 }
-
-.buttons {
-    font-size: 20px;
-    border-radius: 5px;
-    width: 20%;
-    text-align: center;
-    justify-self: center;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-
-.buttons:hover {
-    background-color: #00d5124f;
-    color: #FFFFFF;
-    opacity: 50%;
-}
-
-
-#loginName {
-    font-size: 20px;
-}
-
-#loginPassword {
-    font-size: 20px;
-}
-
-#searchText {
-    font-size: 20px;
-}
-
-#contactText {
-    font-size: 20px;
-}
-
-input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="number"] {
-    border-radius: 5px;
-    text-align: center;
-    width: 30%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    justify-self: center;
-}
-
-#inner-title {
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#loginResult {
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#userName {
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-}
-
-
-select {
-    width: 30%;
-    margin: 2%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-#contactSearchResult {
-    display: none;
-}
-
-#contactAddResult {
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#selectLoginButton, #loginButton{
-    margin-bottom: 1%;
-}
-
-.topnav {
-    overflow: hidden;
-    background-color: #333;
-}
-
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.topnav a.active {
-    background-color: #04AA6D;
-    color: white;
-}
-
-.topnav a.active:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.parent {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    column-gap: 0px;
-    row-gap: 0px;
-    text-align: center;
-}
-
-.div1 {
-    grid-area: auto;
-}
-
-.div2 {
-    grid-area: auto;
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/*# sourceMappingURL=styles.css.map */
