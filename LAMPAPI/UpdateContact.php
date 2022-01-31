@@ -4,8 +4,8 @@
 
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
-	$phoneNumber = $inData["phoneNumber"];
 	$emailAddress = $inData["emailAddress"];
+	$phoneNumber = $inData["phoneNumber"];
 	$streetAddress = $inData["streetAddress"];
 	$city = $inData["city"];
 	$state = $inData["state"];
@@ -21,18 +21,33 @@
 	}
 	else
 	{
-		//$query = "UPDATE Contacts SET firstName='". $firstName ."' WHERE ID='". $contactId ."'";
-		// Get contact and update
-		$query = "UPDATE Contacts SET firstName=?,lastName=?,phoneNumber=?,email=?,streetAddress=?,city=?,state=?,zip=? WHERE UserID=?,ID=?";
+		// Initial query to check if the user exist.
+		$query = "SELECT * FROM Contacts WHERE ID = ?";
 		$stmt = $conn->prepare($query);
-		$stmt->bind_param("ssssssssss",$firstName,$lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$userId,$contactId);
-
+		$stmt->bind_param("s", $contactId);
 		$stmt->execute();
 
-		$stmt->close();
-		$conn->close();
+		$result = $stmt->get_result();
 
-		returnWithError(-1,"");
+		// If statement checks if the contact exists.
+		if (mysqli_num_rows($result) > 0)
+		{
+			// Get contact and update
+			$query = "UPDATE Contacts SET firstName=?,lastName=?,email=?,phoneNumber=?,streetAddress=?,city=?,state=?,zip=? WHERE UserID=? AND ID=?";
+			$stmt = $conn->prepare($query);
+			$stmt->bind_param("ssssssssss",$firstName,$lastName,$emailAddress,$phoneNumber,$streetAddress,$city,$state,$zip,$userId,$contactId);
+
+			$stmt->execute();
+
+			$stmt->close();
+			$conn->close();
+
+			returnWithError(-1,"");
+		}
+		else
+		{
+			returnWithError(0,"Contact Does Not Exist");
+		}
 	}
 
 	function getRequestInfo()
