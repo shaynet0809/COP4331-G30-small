@@ -76,7 +76,7 @@ function setRow(table, contactList, row, i, contactId) {
     eButton.style.background = "transparent";
     eButton.value = contactId;
     eButton.className = "iconButton";
-    eButton.onclick = function () { editWindow(table, jsonObject, i) };
+    eButton.onclick = function () { editWindow(table, contactList, i) };
     eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
     editCell.appendChild(eButton);
 
