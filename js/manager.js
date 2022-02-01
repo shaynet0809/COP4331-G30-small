@@ -422,8 +422,6 @@ function searchContacts() {
                     // sorts into alphabetical order
                     contactList = sortContacts(contactList);
 
-                    // reverses order because table is built from the bottom up
-                    contactList = reverseContacts(contactList);
 
                     //document.getElementById('listForm').innerHTML += '<input type="hidden" class="form-control" id="contactListVar">';
                     //document.getElementById('contactListVar').defaultValue = contactList;

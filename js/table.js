@@ -43,7 +43,7 @@ function setTable(contactList) {
 
 function setRow(table, contactList, row, i, contactId) {
 
-    row = table.insertRow(1);
+    row = table.insertRow(i+1);
 
     var lastNameCell = row.insertCell(0);
     lastNameCell.innerHTML = contactList[i].lastName;
