@@ -27,4 +27,17 @@ body {
 #loginDiv form label {
   color: #FFFFFF;
 }
+
+.row .g-3 label {
+  color: #FFFFFF;
+}
+
+#registerButton {
+  background-color: #0b132b;
+  color: #5BC0BE;
+}
+
+#registrationResult {
+  color: #FFFFFF;
+}
 /*# sourceMappingURL=styles.css.map */
