@@ -440,7 +440,7 @@ function searchContacts() {
         };
         xhr.send(jsonPayload);
 
-        document.getElementById("searchText").value = "";
+        //document.getElementById("searchText").value = "";
     }
     catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
