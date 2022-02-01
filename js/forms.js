@@ -109,11 +109,17 @@ function clearScreen() {
     // clear submit buttons
     document.getElementById("buttonDiv").innerHTML = "";
 
+    clearResults();
+
+}
+
+function clearResults() {
+
     // clear result messages
     document.getElementById("searchContactsResult").innerHTML = "";
-    document.getElementById("searchContactsResult").innerHTML = "";
-    document.getElementById("searchContactsResult").innerHTML = "";
-    document.getElementById("searchContactsResult").innerHTML = "";
+    document.getElementById("deleteContactResult").innerHTML = "";
+    document.getElementById("updateResult").innerHTML = "";
+    document.getElementById("addContactResult").innerHTML = "";
 
 }
 

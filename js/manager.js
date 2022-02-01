@@ -11,6 +11,7 @@ function addContact() {
     let invalidPhone = false;
     let partialAddress = false;
     let completeAddress = false;
+    let invalidZip = false;
     let minimumContact = false;
     let validContact = false;
 
@@ -19,6 +20,7 @@ function addContact() {
     let phoneError = "Invalid phone number. Correct format: 555-555-5555";
     let addressError = "Partial address not allowed.";
     let contactMethodError = "At least one form of contact is required.";
+    let zipError = "Invalid zip. Must be five numeric digits."
 
     // form variables
     let newFirstName = document.getElementById("firstName").value;
@@ -52,15 +54,28 @@ function addContact() {
     // Check if any address fields are populated
     // This could mean a partial or full address. 
     // Partial addresses are not acceptable.
+    // isNaN returns true is NOT a number
 
     if ((newStreetAddress != "") || (newCity != "") || (newState != "") || (newZip != "")) {
 
+        if ((isNaN(newZip)) || (newZip.length < 5)) {
+
+            invalidZip = true;
+
+        }
+
         if ((newStreetAddress == "") || (newCity == "") || (newState == "") || (newZip == "")) {
+
             partialAddress = true;
+
         }
-        else {
+         else if (!invalidZip){
+
             completeAddress = true;
+
         }
+
+   
     }
 
     // Check that at least one form of contact is complete
@@ -86,9 +101,15 @@ function addContact() {
             document.getElementById("addContactResult").innerHTML += addressError + '<br />';
         }
 
+        if (invalidZip) {
+            document.getElementById("addContactResult").innerHTML += zipError + '<br />';
+        }
+
         if (!minimumContact) {
             document.getElementById("addContactResult").innerHTML += contactMethodError + '<br />';
         }
+
+        
 
     }
 
@@ -197,6 +218,7 @@ function doUpdate(contactId) {
     let invalidPhone = false;
     let partialAddress = false;
     let completeAddress = false;
+    let invalidZip = false;
     let minimumContact = false;
     let validContact = false;
 
@@ -205,6 +227,7 @@ function doUpdate(contactId) {
     let phoneError = "Invalid phone number. Correct format: 555-555-5555";
     let addressError = "Partial address not allowed.";
     let contactMethodError = "At least one form of contact is required.";
+    let zipError = "Invalid zip. Must be five numeric digits.";
 
     // form variables
     let newFirstName = document.getElementById("firstName").value;
@@ -241,11 +264,21 @@ function doUpdate(contactId) {
 
     if ((newStreetAddress != "") || (newCity != "") || (newState != "") || (newZip != "")) {
 
-        if ((newStreetAddress == "") || (newCity == "") || (newState == "") || (newZip == "")) {
-            partialAddress = true;
+        if ((isNaN(newZip)) || (newZip.length < 5)) {
+
+            invalidZip = true;
+
         }
-        else {
+
+        if ((newStreetAddress == "") || (newCity == "") || (newState == "") || (newZip == "")) {
+
+            partialAddress = true;
+
+        }
+        else if (!invalidZip) {
+
             completeAddress = true;
+
         }
     }
 
@@ -266,6 +299,10 @@ function doUpdate(contactId) {
 
         if (invalidPhone) {
             document.getElementById("updateResult").innerHTML += phoneError + '<br />';
+        }
+
+        if (invalidZip) {
+            document.getElementById("updateResult").innerHTML += zipError + '<br />';
         }
 
         if (partialAddress) {
