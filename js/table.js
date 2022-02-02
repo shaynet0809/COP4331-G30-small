@@ -12,8 +12,16 @@ function setTable(contactList) {
 
     /*
     var headerCell = document.createElement("TH");
-    headerCell.innerHTML = '<button class="btn btn-outline-success" type="button"  value= "contactListVar" id="sortLastButton" style="border: none" onclick="sortSwitch();">Last Name</button>';
-    //headerCell.appendChild(sortLastButton);
+    headerCell.innerHTML = "Last Name  ";
+
+    var rButton = document.createElement("button");
+    rButton.id = "reverseButton";
+    rButton.style.border = "none";
+    rButton.style.background = "transparent";
+    rButton.value = contactList;
+    rButton.className = "iconButton";
+    rButton.onclick = function () { sortSwitch() };rButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-sort"></i></span ></span >';
+    headerCell.appendChild(rButton);
     row.appendChild(headerCell);
     */
 
@@ -79,8 +87,6 @@ function setRow(table, contactList, row, i, contactId) {
     eButton.onclick = function () { editWindow(table, contactList, i) };
     eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
     editCell.appendChild(eButton);
-
-
 
     var deleteCell = row.insertCell(9);
     let dButton = document.createElement("button");

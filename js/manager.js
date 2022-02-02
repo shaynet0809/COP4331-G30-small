@@ -1,5 +1,7 @@
 /** COP 4331-Spr22 Small Project Group 30 */
 
+var reverseList = false;
+
 function addContact() {
 
     // return value from API
@@ -415,12 +417,24 @@ function searchContacts() {
 
                     var contactId = -1;
 
-                    var row = setTable();
-
                     contactList = jsonObject.results;
 
+                    var row = setTable(contactList);
+
+                    
+
+
+                    if (reverseList == false) {
+
+                        contactList = sortContacts(contactList);
+
+                    } else {
+
+                        contactList = refreshContacts(contactList);
+                    }
+
                     // sorts into alphabetical order
-                    contactList = sortContacts(contactList);
+                    
 
 
                     //document.getElementById('listForm').innerHTML += '<input type="hidden" class="form-control" id="contactListVar">';
@@ -495,7 +509,16 @@ function reverseContacts(contactList) {
 
 function sortSwitch() {
 
-    var contactList = document.getElementById("contactListVar");
+    if (reverseList == true) {
+
+        reverseList == false;
+    }
+    else {
+
+        reverseList == true;
+    }
+
+    var contactList = document.getElementById("reverseButton").value;
 
     var table = document.getElementById("contactTable");
 

@@ -99,16 +99,19 @@ function doRegister() {
                 returnId = jsonObject.id;
 
                 if (returnId == 0) {
+
                     document.getElementById("registrationResult").innerHTML = "User name already exists.";
                 }
                 else if (returnId == -1) {
+
                     document.getElementById("registrationResult").innerHTML = "Contact added successfully.";
+                    window.location.href = "index.html";
                 }
                 else {
                     document.getElementById("registrationResult").innerHTML = "Returned other error:" + returnId;
                 }
 
-                window.location.href = "index.html";
+                
             }
         };
         xhr.send(jsonPayload);
