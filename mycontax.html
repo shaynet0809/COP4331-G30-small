@@ -50,11 +50,10 @@
                     <div class="form-row text-center d-inline-flex align-items-center justify-content-center">
 
                         <form id="searchForm">
-                            <input class="form-control" type="search" id="searchText" placeholder="Search Name" aria-label="Search" required>
+                            <input class="form-control" type="search" id="searchText" onkeyup="searchContacts()" placeholder="Search Name" aria-label="Search" required>
                         </form>
 
                         <div class="controlButtons">
-                            <button class="btn btn-outline-success" type="submit" id="searchButton" style="border: none" onclick="searchContacts();"><i class="fas fa-search"></i></button>
                             <button class="btn btn-outline-success" type="button" id="refreshButton" style="border: none" onclick="refreshContacts();">Refresh</button>
                             <button class="btn btn-outline-success" type="button" id="addButton" style="border: none" onclick="addWindow();">Add Contact</button>
                         </div>

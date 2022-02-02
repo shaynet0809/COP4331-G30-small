@@ -37,3 +37,18 @@ body {
         }
     }
 }
+
+.row .g-3 {
+    label {
+        color: $color-light;
+    }
+}
+
+#registerButton {
+    background-color: $color-primary;
+    color: $color-info; 
+}
+
+#registrationResult {
+    color: $color-light;
+}
