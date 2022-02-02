@@ -40,4 +40,34 @@ body {
 #registrationResult {
   color: #FFFFFF;
 }
+
+.controlButtons .btn {
+  color: #5BC0BE;
+}
+
+.controlButtons .btn:hover {
+  background-color: #0b132b;
+}
+
+#addForm b .form-label {
+  color: #FFFFFF;
+}
+
+#addContactResult {
+  color: #5BC0BE;
+}
+
+#buttonDiv .btn {
+  color: #5BC0BE;
+  font-weight: bold;
+  background-color: #0b132b;
+}
+
+.btn .mt-3 {
+  color: #0b132b;
+}
+
+.display-4 {
+  color: #FFFFFF;
+}
 /*# sourceMappingURL=styles.css.map */

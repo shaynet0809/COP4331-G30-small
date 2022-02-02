@@ -89,7 +89,7 @@ function addWindow() {
 
     var aButton = document.createElement("button");
     aButton.name = "addButton";
-    aButton.className = "btn btn-outline-success mt-3";
+    aButton.className = "btn mt-3";
     aButton.onclick = function () { addContact() };
     aButton.innerHTML = "Add Contact";
     document.getElementById("buttonDiv").appendChild(aButton);
@@ -229,7 +229,7 @@ function editWindow(table, contactList, i) {
 
     var uButton = document.createElement("button");
     uButton.name = "updateButton";
-    uButton.className = "btn btn-outline-success mt-3";
+    uButton.className = "btn mt-3";
     uButton.onclick = function () { doUpdate(contactList[i].contactId) };
     uButton.innerHTML = "Update Contact";
     document.getElementById("buttonDiv").appendChild(uButton);

@@ -52,3 +52,40 @@ body {
 #registrationResult {
     color: $color-light;
 }
+
+.controlButtons {
+    .btn {
+        color: $color-info;
+    }
+    .btn:hover {
+        background-color: $color-primary;
+    }
+}
+
+#addForm {
+    b {
+         .form-label {
+             color: $color-light;
+         }
+    }
+ }
+
+ #addContactResult {
+    color: $color-info;
+ }
+
+ #buttonDiv {
+     .btn {
+         color: $color-info;
+         font-weight: bold;
+         background-color: $color-primary;
+     }
+ }
+
+ .btn .mt-3{
+   color: $color-primary;
+ }
+
+ .display-4 {
+     color: $color-light;
+ }
