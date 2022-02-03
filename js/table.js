@@ -85,7 +85,7 @@ function setRow(table, contactList, row, i, contactId) {
     eButton.value = contactId;
     eButton.className = "iconButton";
     eButton.onclick = function () { editWindow(table, contactList, i) };
-    eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-edit"></i></span ></span >';
+    eButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: #5BC0BE ;" ><i class="fas fa-edit"></i></span ></span >';
     editCell.appendChild(eButton);
 
     var deleteCell = row.insertCell(9);
@@ -96,6 +96,6 @@ function setRow(table, contactList, row, i, contactId) {
     dButton.value = contactId;
     dButton.className = "iconButton";
     dButton.onclick = function () { deleteCheck(contactList[i].contactId) };
-    dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen; border: none" ><i class="fas fa-trash-alt"></i></span ></span >';
+    dButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: #5BC0BE; border: none" ><i class="fas fa-trash-alt"></i></span ></span >';
     deleteCell.appendChild(dButton);
 }

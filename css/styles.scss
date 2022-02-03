@@ -89,3 +89,15 @@ body {
  .display-4 {
      color: $color-light;
  }
+
+ #updateForm {
+    b {
+         .form-label {
+             color: $color-light;
+         }
+    }
+ }
+
+ #contactWindow {
+     color: $color-secondary;
+ }

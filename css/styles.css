@@ -70,4 +70,12 @@ body {
 .display-4 {
   color: #FFFFFF;
 }
+
+#updateForm b .form-label {
+  color: #FFFFFF;
+}
+
+#contactWindow {
+  color: #1c2541;
+}
 /*# sourceMappingURL=styles.css.map */
