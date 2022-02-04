@@ -20,6 +20,11 @@ function doLogin() {
 
     document.getElementById("loginResult").innerHTML = "";
 
+    if ((login == "") || (password == "")) {
+        document.getElementById("loginResult").innerHTML = "All fields required";
+        return;
+    }
+
     let tmp = { login: login, password: hash };
     let jsonPayload = JSON.stringify(tmp);
 
@@ -54,6 +59,9 @@ function doLogin() {
     catch (err) {
         document.getElementById("loginResult").innerHTML = err.message;
     }
+
+
+    
 }
 
 function doLogout() {

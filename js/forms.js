@@ -9,13 +9,11 @@ function addWindow() {
 
     var div = document.getElementById('addForm');
 
-
     document.getElementById('addForm').innerHTML += '<b><label for="firstName" class="form-label">First Name:</label></b>';
-    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control mb-3" id="firstName" placeholder="First Name *">';
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control mb-3" id="firstName" placeholder="First Name *" required>';
 
     document.getElementById('addForm').innerHTML += '<b><label for="lastName" class="form-label">Last Name:</label></b>';
-    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control mb-3" id="lastName" placeholder="Last Name *"></b>';
-
+    document.getElementById('addForm').innerHTML += '<input type="text" class="form-control mb-3" id="lastName" placeholder="Last Name *" required></b>';
 
     document.getElementById('addForm').innerHTML += '<b><label for="phoneNumber" class="form-label">Phone Number:</label>';
     document.getElementById('addForm').innerHTML += '<input type="tel" class="form-control mb-3" id="phoneNumber" placeholder="Phone Number"></b>';
@@ -137,15 +135,17 @@ function editWindow(table, contactList, i) {
 
     var div = document.getElementById('updateForm');
 
+
+
     document.getElementById('updateForm').innerHTML += '<input type="hidden" class="form-control" id="contactId">';
     document.getElementById('contactId').defaultValue = contactList[i].contactId;
 
     document.getElementById('updateForm').innerHTML += '<b><label for="firstName" class="form-label">First Name:</label></b>';
-    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control mb-3" id="firstName" placeholder="First Name *">';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control" id="firstName" placeholder="First Name *" required>';
     document.getElementById('firstName').defaultValue = contactList[i].firstName;
 
     document.getElementById('updateForm').innerHTML += '<b><label for="lastName" class="form-label">Last Name:</label></b>';
-    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control mb-3" id="lastName" placeholder="Last Name *">';
+    document.getElementById('updateForm').innerHTML += '<input type="text" class="form-control mb-3" id="lastName" placeholder="Last Name *" required>';
     document.getElementById('lastName').defaultValue = contactList[i].lastName;
 
     document.getElementById('updateForm').innerHTML += '<b><label for="phoneNumber" class="form-label">Phone Number:</label></b>';
@@ -252,3 +252,4 @@ function getSelectedIndex(s, v) {
         return targetIndex;
     }
 }
+

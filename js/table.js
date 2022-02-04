@@ -29,7 +29,6 @@ function setTable(contactList) {
     row.appendChild(headerCell);
     */
 
-
     headers.push("Last Name");
     headers.push("First Name");
     headers.push("Phone");
