@@ -48,6 +48,29 @@ function addContact() {
 
         var reg = new RegExp("[0-9]{3}-[0-9]{3}-[0-9]{4}");
 
+        var phonNumber = newPhoneNumber.match(/\d/g, '');
+
+        if (phonNumber.length == 10) {
+            var string = "123-123-1234";
+            string = Array.from(string);
+            for (var i = 0; i < 10; i++) {
+                if (i < 3) {
+                    string[i] = phonNumber[i];
+
+                }
+                if (i > 2 && i < 5) {
+                    string[i + 1] = phonNumber[i];
+
+                }
+                if (i > 5) {
+                    string[i + 2] = phonNumber[i];
+
+                }
+
+            }
+
+            newPhoneNumber = string.join("");
+        }
         if (!reg.test(newPhoneNumber)) {
             invalidPhone = true;
         }
@@ -255,6 +278,29 @@ function doUpdate(contactId) {
 
         var reg = new RegExp("[0-9]{3}-[0-9]{3}-[0-9]{4}");
 
+        var phonNumber = newPhoneNumber.match(/\d/g, '');
+
+        if (phonNumber.length == 10) {
+            var string = "123-123-1234";
+            string = Array.from(string);
+            for (var i = 0; i < 10; i++) {
+                if (i < 3) {
+                    string[i] = phonNumber[i];
+
+                }
+                if (i > 2 && i < 5) {
+                    string[i + 1] = phonNumber[i];
+
+                }
+                if (i > 5) {
+                    string[i + 2] = phonNumber[i];
+
+                }
+
+            }
+
+            newPhoneNumber = string.join("");
+        }
         if (!reg.test(newPhoneNumber)) {
             invalidPhone = true;
         }
