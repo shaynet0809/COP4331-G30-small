@@ -128,6 +128,56 @@ function doRegister() {
         document.getElementById("registrationResult").innerHTML = err.message;
     }
 }
+function loginListener() {
+    
+        var login = document.getElementById("login");
+        var password = document.getElementById("password")
+        login.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+            event.preventDefault();
+        document.getElementById("loginButton").click();
+            }
+        });
+        password.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+            event.preventDefault();
+        document.getElementById("loginButton").click();
+            }
+        });
+}
+
+function registerListener() {
+
+    var newFirstName = document.getElementById("newFirstName");
+    var newLastName = document.getElementById("newLastName");
+    var newLogin = document.getElementById("newLogin");
+    var newPassword = document.getElementById("newPassword");
+
+    newFirstName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("registerButton").click();
+        }
+    });
+    newLastName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("registerButton").click();
+        }
+    });
+    newLogin.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("registerButton").click();
+        }
+    });
+    newPassword.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("registerButton").click();
+        }
+    });
+}
 
 function readCookie() {
 
@@ -167,3 +217,4 @@ function saveCookie() {
     date.setTime(date.getTime() + (minutes * 60 * 1000));
     document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
+
