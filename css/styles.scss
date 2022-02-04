@@ -18,6 +18,12 @@ body {
     }
 }
 
+.navbar-nav > .active > a:hover,
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+    background: #000;
+}
+
 .custom-toggler.navbar-toggler {
     border-color:#FFFFFF;
     background-color: #FFFFFF;
@@ -58,6 +64,7 @@ body {
 .controlButtons {
     .btn {
         color: $color-info;
+        box-shadow: none !important;
     }
     .btn:hover {
         background-color: $color-primary;
