@@ -226,7 +226,7 @@ function doUpdate(contactId) {
 
     // error messages
     let nameError = "First and last name required.";
-    let phoneError = "Invalid phone number. Correct format: 555-555-5555";
+    let phoneError = "Invalid phone number.";
     let addressError = "Partial address not allowed.";
     let contactMethodError = "At least one form of contact is required.";
     let zipError = "Invalid zip. Must be five numeric digits.";
@@ -433,14 +433,6 @@ function searchContacts() {
                         contactList = refreshContacts(contactList);
                     }
 
-                    // sorts into alphabetical order
-                    
-
-
-                    //document.getElementById('listForm').innerHTML += '<input type="hidden" class="form-control" id="contactListVar">';
-                    //document.getElementById('contactListVar').defaultValue = contactList;
-
-
                     for (let i = 0; i < contactList.length; i++) {
 
                         setRow(table, contactList, row, i, contactList[i].contactId);
@@ -454,7 +446,6 @@ function searchContacts() {
         };
         xhr.send(jsonPayload);
 
-        //document.getElementById("searchText").value = "";
     }
     catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
@@ -486,8 +477,6 @@ function sortContacts(contactList) {
 
 
 function reverseContacts(contactList) {
-
-    //var contactList = document.getElementById("contactListVar");
 
     contactList.sort(function (a, b) {
         var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase

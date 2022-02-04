@@ -1,3 +1,5 @@
+/** COP 4331-Spr22 Small Project Group 30 */
+
 function setTable(contactList) {
 
     table = document.getElementById("contactTable");
@@ -11,6 +13,8 @@ function setTable(contactList) {
 
 
     /*
+     * Future feature, not ready to be turned on
+     
     var headerCell = document.createElement("TH");
     headerCell.innerHTML = "Last Name  ";
 

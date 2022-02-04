@@ -245,7 +245,6 @@ function getSelectedIndex(s, v) {
 
         if (s.options[i].text == v) {
 
-            //s.options[i].selected = true;
             targetIndex = i;
             break;
         }
