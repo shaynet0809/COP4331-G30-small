@@ -461,15 +461,14 @@ function searchContacts() {
 
                     var table = document.getElementById("contactTable");
 
+
                     var contactId = -1;
 
                     contactList = jsonObject.results;
 
                     var row = setTable(contactList);
 
-                    
-
-
+     
                     if (reverseList == false) {
 
                         contactList = sortContacts(contactList);
@@ -483,6 +482,7 @@ function searchContacts() {
 
                         setRow(table, contactList, row, i, contactList[i].contactId);
                     }
+
                 }else
                 {
 
