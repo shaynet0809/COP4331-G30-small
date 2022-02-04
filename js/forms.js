@@ -1,5 +1,65 @@
 /** COP 4331-Spr22 Small Project Group 30 */
 
+function addListener() {
+
+    var firstName = document.getElementById("firstName");
+    var lastName = document.getElementById("lastName");
+    var phoneNumber = document.getElementById("phoneNumber");
+    var emailAddress = document.getElementById("emailAddress");
+    var streetAddress = document.getElementById("streetAddress");
+    var city = document.getElementById("city");
+    var state = document.getElementById("state");
+    var zip = document.getElementById("zip");
+
+    firstName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    lastName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    phoneNumber.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    emailAddress.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    streetAddress.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    city.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    state.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+    zip.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("addButton").click();
+        }
+    });
+}
 
 function addWindow() {
 
@@ -87,10 +147,13 @@ function addWindow() {
 
     var aButton = document.createElement("button");
     aButton.name = "addButton";
+    aButton.id = "addButton";
     aButton.className = "btn mt-3";
     aButton.onclick = function () { addContact() };
     aButton.innerHTML = "Add Contact";
     document.getElementById("buttonDiv").appendChild(aButton);
+
+    //addListener();
 
 
 }
@@ -119,6 +182,67 @@ function clearResults() {
     document.getElementById("updateResult").innerHTML = "";
     document.getElementById("addContactResult").innerHTML = "";
 
+}
+
+function editListener() {
+
+    var firstName = document.getElementById("firstName");
+    var lastName = document.getElementById("lastName");
+    var phoneNumber = document.getElementById("phoneNumber");
+    var emailAddress = document.getElementById("emailAddress");
+    var streetAddress = document.getElementById("streetAddress");
+    var city = document.getElementById("city");
+    var state = document.getElementById("state");
+    var zip = document.getElementById("zip");
+
+    firstName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    lastName.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    phoneNumber.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    emailAddress.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    streetAddress.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    city.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    state.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
+    zip.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("updateButton").click();
+        }
+    });
 }
 
 function editWindow(table, contactList, i) {
@@ -229,10 +353,13 @@ function editWindow(table, contactList, i) {
 
     var uButton = document.createElement("button");
     uButton.name = "updateButton";
+    uButton.id = "updateButton";
     uButton.className = "btn mt-3";
     uButton.onclick = function () { doUpdate(contactList[i].contactId) };
     uButton.innerHTML = "Update Contact";
     document.getElementById("buttonDiv").appendChild(uButton);
+
+    editListener();
 
 
 }

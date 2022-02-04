@@ -18,11 +18,11 @@ function addContact() {
     let validContact = false;
 
     // error messages
-    let nameError = "First and last name required.";
-    let phoneError = "Invalid phone number. Correct format: 555-555-5555";
-    let addressError = "Partial address not allowed.";
-    let contactMethodError = "At least one form of contact is required.";
-    let zipError = "Invalid zip. Must be five numeric digits."
+    let nameError = "* First and last name required.";
+    let phoneError = "* Invalid phone number.";
+    let addressError = "* Partial address not allowed.";
+    let contactMethodError = "* At least one form of contact is required.";
+    let zipError = "* Invalid zip. Must be five numeric digits."
 
     // form variables
     let newFirstName = document.getElementById("firstName").value;
@@ -248,11 +248,11 @@ function doUpdate(contactId) {
     let validContact = false;
 
     // error messages
-    let nameError = "First and last name required.";
-    let phoneError = "Invalid phone number.";
-    let addressError = "Partial address not allowed.";
-    let contactMethodError = "At least one form of contact is required.";
-    let zipError = "Invalid zip. Must be five numeric digits.";
+    let nameError = "* First and last name required.";
+    let phoneError = "* Invalid phone number.";
+    let addressError = "* Partial address not allowed.";
+    let contactMethodError = "* At least one form of contact is required.";
+    let zipError = "* Invalid zip. Must be five numeric digits.";
 
     // form variables
     let newFirstName = document.getElementById("firstName").value;
