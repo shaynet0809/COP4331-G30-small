@@ -73,7 +73,7 @@ body {
  }
 
  #addContactResult {
-    color: $color-info;
+    color: $color-light;
  }
 
  #buttonDiv {
@@ -100,6 +100,22 @@ body {
     }
  }
 
+#updateResult {
+    color: $color-light;
+}
+
+#searchContactsResult {
+    color: $color-light;
+}
+
+#deleteContactResult {
+    color: $color-light;
+}
+
  #contactWindow {
      color: $color-secondary;
+ }
+
+ #loginResult {
+     color: $color-light;
  }
