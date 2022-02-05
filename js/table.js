@@ -12,22 +12,6 @@ function setTable(contactList) {
 
 
 
-    /*
-     * Future feature, not ready to be turned on
-     
-    var headerCell = document.createElement("TH");
-    headerCell.innerHTML = "Last Name  ";
-
-    var rButton = document.createElement("button");
-    rButton.id = "reverseButton";
-    rButton.style.border = "none";
-    rButton.style.background = "transparent";
-    rButton.value = contactList;
-    rButton.className = "iconButton";
-    rButton.onclick = function () { sortSwitch() };rButton.innerHTML = '<span style="font-size: 1rem;"><span style="color: mediumseagreen;" ><i class="fas fa-sort"></i></span ></span >';
-    headerCell.appendChild(rButton);
-    row.appendChild(headerCell);
-    */
 
     headers.push("Last Name");
     headers.push("First Name");
