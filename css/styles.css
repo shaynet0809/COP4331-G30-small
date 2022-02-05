@@ -14,7 +14,8 @@ body {
 .navbar-nav > .active > a:hover,
 .navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
-  background: #000;
+  background: #0b132b;
+  border-radius: .25rem;
 }
 
 .custom-toggler.navbar-toggler {
@@ -106,5 +107,13 @@ body {
 
 #userName {
   color: #FFFFFF;
+}
+
+div .p-3 {
+  border-radius: .25rem;
+}
+
+div .py-3 {
+  border-radius: .25rem;
 }
 /*# sourceMappingURL=styles.css.map */
