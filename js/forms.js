@@ -362,10 +362,18 @@ function editWindow(table, contactList, i) {
     var uButton = document.createElement("button");
     uButton.name = "updateButton";
     uButton.id = "updateButton";
-    uButton.className = "btn mt-3";
+    uButton.className = "btn mr-3";
     uButton.onclick = function () { doUpdate(contactList[i].contactId) };
     uButton.innerHTML = "Update Contact";
     document.getElementById("buttonDiv").appendChild(uButton);
+
+    var rButton = document.createElement("button");
+    rButton.name = "refreshButton";
+    rButton.id = "refreshButton";
+    rButton.className = "btn m-3";
+    rButton.onclick = function () { refreshContacts() };
+    rButton.innerHTML = "Cancel";
+    document.getElementById("buttonDiv").appendChild(rButton);
 
     editListener();
 
