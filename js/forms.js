@@ -63,7 +63,9 @@ function addListener() {
 
 function addWindow() {
 
+
     clearScreen();
+
 
     var contactWindowDiv = document.getElementById('addWindow');
 
@@ -161,8 +163,8 @@ function addWindow() {
     rButton.innerHTML = "Cancel";
     document.getElementById("buttonDiv").appendChild(rButton);
 
-    //addListener();
-
+   
+   // addListener();
 
 }
 
@@ -256,12 +258,6 @@ function editListener() {
 function editWindow(table, contactList, i) {
 
     clearScreen();
-
-    var div = document.getElementById('updateForm');
-
-
-
-    document.getElementById("contactTable").innerHTML = "";
 
     var contactWindowDiv = document.getElementById('updateWindow');
 
