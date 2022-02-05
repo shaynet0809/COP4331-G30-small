@@ -18,7 +18,7 @@
 <body onload="searchContacts()">
 
     <nav class="navbar navbar-expand-lg gx-5 p-2">
-        <img src="images/ContaX_nav4.png" alt="ContaX Logo" class="d-inline-block align-text-bottom ps-1">
+        <img src="images/ContaX_nav4.png" alt="ContaX Logo" class="d-inline-block align-text-bottom px-1">
         <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon custom-toggler-icon"></span>
         </button>
@@ -26,13 +26,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="mycontax.html">Home</a>
+                    <a class="nav-link text-light px-2" href="mycontax.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light active" href="mycontax.html">MyContaX</a>
+                    <a class="nav-link text-light active px-2" href="mycontax.html">MyContaX</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" onclick="doLogout();">Logout</a>
+                    <a class="nav-link text-light px-2" onclick="doLogout();">Logout</a>
                 </li>
             </ul>
         </div>
@@ -53,9 +53,9 @@
                             <input class="form-control" type="search" id="searchText" onkeyup="searchContacts()" placeholder="Search Name" aria-label="Search" required>
                         </form>
 
-                        <div class="controlButtons">
-                            <button class="btn btn-outline-dark" type="button" id="refreshButton" style="border: none" onclick="refreshContacts();">Refresh</button>
-                            <button class="btn btn-outline-dark" type="button" id="addButton" style="border: none" onclick="addWindow();">Add Contact</button>
+                        <div class="controlButtons ps-2">
+                            <button class="btn btn-outline-dark px-3" type="button" id="refreshButton" style="border: none" onclick="refreshContacts();">Refresh</button>
+                            <button class="btn btn-outline-dark px-3" type="button" id="addButton" style="border: none" onclick="addWindow();">Add Contact</button>
                         </div>
 
                     </div>
