@@ -65,6 +65,7 @@ function setRow(table, contactList, row, i, contactId) {
     zipCell.innerHTML = contactList[i].zip;
 
     var editCell = row.insertCell(8)
+    editCell.style.textAlign = "center";
     let eButton = document.createElement("button");
     eButton.name = "editButton";
     eButton.style.border = "none";
@@ -76,6 +77,7 @@ function setRow(table, contactList, row, i, contactId) {
     editCell.appendChild(eButton);
 
     var deleteCell = row.insertCell(9);
+    deleteCell.style.textAlign = "center";
     let dButton = document.createElement("button");
     dButton.name = "deleteButton";
     dButton.style.border = "none";
