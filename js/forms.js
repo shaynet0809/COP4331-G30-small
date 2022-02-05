@@ -148,10 +148,18 @@ function addWindow() {
     var aButton = document.createElement("button");
     aButton.name = "addButton";
     aButton.id = "addButton";
-    aButton.className = "btn mt-3";
+    aButton.className = "btn mr-3";
     aButton.onclick = function () { addContact() };
     aButton.innerHTML = "Add Contact";
     document.getElementById("buttonDiv").appendChild(aButton);
+
+    var rButton = document.createElement("button");
+    rButton.name = "refreshButton";
+    rButton.id = "refreshButton";
+    rButton.className = "btn m-3";
+    rButton.onclick = function () { refreshContacts() };
+    rButton.innerHTML = "Cancel";
+    document.getElementById("buttonDiv").appendChild(rButton);
 
     //addListener();
 
