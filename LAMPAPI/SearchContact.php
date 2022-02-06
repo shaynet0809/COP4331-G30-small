@@ -11,11 +11,11 @@
 	}
 	else
 	{
-		// Allows to search for firstname and lastname of contact with the
-		// appropiate UserID.
+		// Find contact by either first or lastname
 		$query = "SELECT firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,ID,UserID";
 		$query .= " FROM Contacts WHERE ((firstName like ?) or (lastName like ?)) and UserID=?";
 
+		// Get all valid results
 		$stmt = $conn->prepare($query);
 		$firstName = "%" . $inData["search"] . "%";
 		$lastName = "%" . $inData["search"] . "%";
@@ -27,6 +27,7 @@
 
 		while($row = $result->fetch_assoc())
 		{
+			// Input data into a 2D array
 			$resultArray[$searchCount] = array(
 				"firstName" => $row["firstName"],
 				"lastName" => $row["lastName"],

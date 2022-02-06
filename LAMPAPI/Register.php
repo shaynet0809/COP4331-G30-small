@@ -45,23 +45,6 @@
 		$conn->close();
 	}
 
-	function fieldsAreValid($firstName, $lastName, $login, $password)
-	{
-		if (strcmp($firstName, "") == 0)
-			return false;
-
-		if (strcmp($lastName, "") == 0)
-			return false;
-
-		if (strcmp($login, "") == 0)
-			return false;
-
-		if (strcmp($password, "") == 0)
-			return false;
-
-		return true;
-	}
-
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);

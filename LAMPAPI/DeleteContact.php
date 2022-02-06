@@ -36,7 +36,7 @@
 		// Reaches here then contact does not exist.
 		else
 		{
-			returnWithError(-1, "Does not exist");
+			returnWithError(0, "Does not exist");
 		}
 
 		$stmt->close();

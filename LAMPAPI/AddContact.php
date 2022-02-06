@@ -18,7 +18,6 @@
 	}
 	else
 	{
-		//$query = "INSERT into Contacts (firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,UserID) VALUES (?,?,?,?,?,?,?,?,?)";
 		// Create query
 		$query = "INSERT into Contacts";
 		$query .= " (firstName,lastName,email,phoneNumber,streetAddress,city,state,zip,UserID)";
