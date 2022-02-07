@@ -1,0 +1,119 @@
+/** COP 4331-Spr22 Small Project Group 30 */
+body {
+  background-color: #0B132B;
+}
+
+.navbar {
+  background-color: #1C2541;
+}
+
+.navbar .navbar-brand {
+  color: #5BC0BE;
+}
+
+.navbar-nav > .active > a:hover,
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+  background: #0b132b;
+  border-radius: .25rem;
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("https://www.clipartmax.com/png/small/36-365828_navbar-toggle-icon-menu-hamburger-png-white.png");
+}
+
+#loginDiv .btn {
+  background-color: #0b132b;
+  color: #5BC0BE;
+}
+
+#loginDiv form label {
+  color: #FFFFFF;
+}
+
+.row .g-3 label {
+  color: #FFFFFF;
+}
+
+#registerButton {
+  background-color: #0b132b;
+  color: #5BC0BE;
+}
+
+#registrationResult {
+  color: #FFFFFF;
+}
+
+.controlButtons .btn {
+  color: #5BC0BE;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.controlButtons .btn:hover {
+  background-color: #0b132b;
+}
+
+#addForm b .form-label {
+  color: #FFFFFF;
+}
+
+#addContactResult {
+  color: #FFFFFF;
+}
+
+#buttonDiv .btn {
+  color: #5BC0BE;
+  font-weight: bold;
+  background-color: #0b132b;
+}
+
+.btn .mt-3 {
+  color: #0b132b;
+}
+
+.display-4 {
+  color: #FFFFFF;
+}
+
+#updateForm b .form-label {
+  color: #FFFFFF;
+}
+
+#updateResult {
+  color: #FFFFFF;
+}
+
+#searchContactsResult {
+  color: #FFFFFF;
+}
+
+#deleteContactResult {
+  color: #FFFFFF;
+}
+
+#contactWindow {
+  color: #1c2541;
+}
+
+#loginResult {
+  color: #FFFFFF;
+}
+
+#userName {
+  color: #FFFFFF;
+}
+
+div .p-3 {
+  border-radius: .25rem;
+}
+
+div .py-3 {
+  border-radius: .25rem;
+}
+/*# sourceMappingURL=styles.css.map */

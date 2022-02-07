@@ -1,0 +1,141 @@
+/** COP 4331-Spr22 Small Project Group 30 */
+
+$color-primary: #0b132b;
+$color-secondary: #1c2541;
+$color-warning: #3A506B;
+$color-info: #5BC0BE;
+$color-light: #FFFFFF;
+$color-dark: #000;
+
+body {
+    background-color:#0B132B;
+}
+
+.navbar{
+    background-color: #1C2541;
+    .navbar-brand {
+        color: $color-info;
+    }
+}
+
+.navbar-nav > .active > a:hover,
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+    background: #0b132b;
+    border-radius: .25rem;
+}
+
+.custom-toggler.navbar-toggler {
+    border-color:#FFFFFF;
+    background-color: #FFFFFF;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url(
+"https://www.clipartmax.com/png/small/36-365828_navbar-toggle-icon-menu-hamburger-png-white.png");
+}
+
+#loginDiv {
+    .btn {
+        background-color: $color-primary;
+        color: $color-info;
+    }
+    form {
+        label {
+            color: $color-light;
+        }
+    }
+}
+
+.row .g-3 {
+    label {
+        color: $color-light;
+    }
+}
+
+#registerButton {
+    background-color: $color-primary;
+    color: $color-info; 
+}
+
+#registrationResult {
+    color: $color-light;
+}
+
+.controlButtons {
+    .btn {
+        color: $color-info;
+        box-shadow: none !important;
+    }
+    .btn:hover {
+        background-color: $color-primary;
+    }
+}
+
+#addForm {
+    b {
+         .form-label {
+             color: $color-light;
+         }
+    }
+ }
+
+ #addContactResult {
+    color: $color-light;
+ }
+
+ #buttonDiv {
+     .btn {
+         color: $color-info;
+         font-weight: bold;
+         background-color: $color-primary;
+     }
+ }
+
+ .btn .mt-3{
+   color: $color-primary;
+ }
+
+ .display-4 {
+     color: $color-light;
+ }
+
+ #updateForm {
+    b {
+         .form-label {
+             color: $color-light;
+         }
+    }
+ }
+
+#updateResult {
+    color: $color-light;
+}
+
+#searchContactsResult {
+    color: $color-light;
+}
+
+#deleteContactResult {
+    color: $color-light;
+}
+
+ #contactWindow {
+     color: $color-secondary;
+ }
+
+ #loginResult {
+     color: $color-light;
+ }
+
+#userName {
+    color: $color-light;
+}
+
+div .p-3 {
+    border-radius: .25rem;
+}
+
+div .py-3 {
+    border-radius: .25rem;
+}
